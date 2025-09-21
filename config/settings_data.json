@@ -1,0 +1,31 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "landing-page": {
+        "type": "landing-page",
+        "settings": {
+          "heading": "Introducing OTSAMO. A quiet luxury wardrobe.",
+          "description": "<p>OTSAMO is a fashion label rooted in Finnish minimalism and sculptural design. Each piece blends sharp structure with ease, offering a refined take on everyday essentials and quiet luxury. We focus on clarity, form, and quiet confidence — a wardrobe that speaks through restraint and intentional choices.<br/>We’re preparing for launch. Sign up to be among the first to explore the debut collection, preview exclusive looks, and follow the journey as we build something slow, intentional and timeless for the modern wardrobe.</p>"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {}
+      }
+    },
+    "content_for_index": []
+  }
+}

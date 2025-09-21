@@ -1,0 +1,45 @@
+<section class="landing-page-container">
+  <div class="landing-page-content">
+    <header>
+      <h1 class="landing-page-title">
+        {{ section.settings.heading }}
+      </h1>
+    </header>
+
+    <section class="landing-page-description-container">
+      <p class="landing-page-description">
+        {{ section.settings.description }}
+      </p>
+    </section>
+  </div>
+</section>
+
+<div class="logo-animation-overlay">
+  <div class="logo-animation-content">
+    {% render 'logo-svg' %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Landing Page",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Main Heading",
+        "default": "Introducing OTSAMO. A quiet luxury wardrobe."
+      }, {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+        "default": "<p>OTSAMO is a fashion label...</p>"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Landing Page"
+      }
+    ]
+  }
+{% endschema %}

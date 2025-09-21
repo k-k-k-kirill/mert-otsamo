@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html lang="{{ request.locale.iso_code }}" dir="{{ settings.text_direction }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_primary }}">
+
+    <!-- SEO Meta Tags -->
+    <title>
+      {{ page_title | escape }}
+      {% if current_tags %}
+        - tagged "{{ current_tags | join: ', ' }}"{% endif %}
+      {% if current_page != 1 %}
+        - Page {{ current_page }}{% endif %}
+      {% unless page_title contains shop.name %}
+        - {{ shop.name }}{% endunless %}
+    </title>
+    <meta name="description" content="{{ page_description | escape }}">
+    <meta name="keywords" content="{{ current_tags | join: ', ' }}">
+    <meta name="author" content="{{ shop.name }}">
+
+      <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:title" content="{{ page_title | escape }}">
+    <meta property="og:description" content="{{ page_description | escape }}">
+    <meta property="og:image" content="{{ page_image | img_url: '1200x630' | default: 'default-image.jpg' | asset_url }}">
+
+    <meta property="og:site_name" content="{{ shop.name }}">
+
+      <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ canonical_url }}">
+    <meta property="twitter:title" content="{{ page_title | escape }}">
+    <meta property="twitter:description" content="{{ page_description | escape }}">
+    <meta property="twitter:image" content="{{ page_image | img_url: '1200x630' }}">
+
+      <!-- Canonical URL -->
+    <link rel="canonical" href="{{ canonical_url }}">
+
+      <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{{ 'favicon-32x32.png' | asset_url }}">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{{ 'favicon-16x16.png' | asset_url }}">
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{{ 'apple-touch-icon.png' | asset_url }}">
+
+      <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://cdn.shopify.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+
+      <!-- Styles -->
+    <link rel="stylesheet" href="{{ 'theme.css' |  asset_url }}">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "{{ shop.name }}",
+        "url": "{{ shop.url }}",
+        "logo": "{{ shop.brand.logo| img_url: '400x400' }}",
+        "description": "{{ shop.description }}",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "{{ shop.address.street }}",
+          "addressLocality": "{{ shop.address.city }}",
+          "addressRegion": "{{ shop.address.province }}",
+          "postalCode": "{{ shop.address.zip }}",
+          "addressCountry": "{{ shop.address.country }}"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "{{ shop.phone }}",
+          "contactType": "customer service"
+        }
+      }
+    </script>
+
+    {{ content_for_header }}
+  </head>
+  <body>
+    <main class="main-content">
+      {% section 'header' %}
+
+      {{ content_for_layout }}
+
+      {% section 'footer' %}
+    </main>
+
+    <!-- JavaScript -->
+    <script src="{{ 'theme.js' | asset_url }}"></script>
+  </body>
+</html>
