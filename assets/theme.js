@@ -1,3 +1,18 @@
+function isPartiallyInViewport(el) {
+  const rect = el.getBoundingClientRect();
+
+  return (
+    rect.bottom >= 0 &&
+    rect.right >= 0 &&
+    rect.top <= document.documentElement.clientHeight &&
+    rect.left <= document.documentElement.clientWidth
+  );
+}
+
+function isCompletelyOutOfViewport(el) {
+  return !isPartiallyInViewport(el);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   const leftBracket = document.querySelector("path#path-left");
   const rightBracket = document.querySelector("path#path-right");
@@ -5,67 +20,79 @@ document.addEventListener("DOMContentLoaded", function () {
   const landingPageContent = document.querySelector(".landing-page-container");
 
   let scrollCounter = 0;
-  const maxScroll = 2000;
   let isPageRevealed = false;
+  let lastScrollTime = Date.now();
+  let scrollVelocity = 0;
+  let lastScrollCounter = 0;
 
   function updateBrackets() {
+    const currentTime = Date.now();
+    const timeDelta = currentTime - lastScrollTime;
+
+    if (timeDelta > 16) {
+      scrollVelocity = Math.abs(scrollCounter - lastScrollCounter) / timeDelta;
+      lastScrollTime = currentTime;
+      lastScrollCounter = scrollCounter;
+    }
+
     const scale = Math.max(0.1, 1 + Math.abs(scrollCounter) * 0.001);
     const movement = Math.abs(scrollCounter) * 0.3;
-    const bracketSize = 224 * scale;
-    const bracketPosition = movement + bracketSize / 2;
     const screenWidth = window.innerWidth;
-    const revealThreshold = screenWidth * 0.3;
-    const opacity = Math.max(
-      0,
-      1 - Math.max(0, bracketPosition - revealThreshold) / (screenWidth * 0.4)
-    );
+    const isBracketsOffScreen =
+      isCompletelyOutOfViewport(leftBracket) &&
+      isCompletelyOutOfViewport(rightBracket);
+    const opacity = isBracketsOffScreen ? 0 : 1;
 
-    const isBracketsOffScreen = bracketPosition > screenWidth * 0.5;
+    const extendedMovement = isBracketsOffScreen
+      ? movement + screenWidth * 0.8
+      : movement;
 
     if (isBracketsOffScreen && !isPageRevealed) {
       isPageRevealed = true;
     }
 
-    let contentScale, contentOpacity;
+    let contentOpacity;
 
     if (isBracketsOffScreen) {
-      contentScale = 1;
       contentOpacity = 1;
     } else {
-      contentScale = Math.min(
-        1,
-        Math.max(0.1, 0.1 + Math.abs(scrollCounter) * 0.0003)
-      );
       contentOpacity = Math.max(0, 1 - opacity);
     }
 
     if (leftBracket) {
       leftBracket.style.transformOrigin = "center";
-      leftBracket.style.transform = `scale(${scale}) translateX(${-movement}px)`;
+      leftBracket.style.transform = `translate3d(${-extendedMovement}px, 0, 0) scale3d(${scale}, ${scale}, 1)`;
     }
 
     if (rightBracket) {
       rightBracket.style.transformOrigin = "center";
-      rightBracket.style.transform = `scale(${scale}) translateX(${movement}px)`;
+      rightBracket.style.transform = `translate3d(${extendedMovement}px, 0, 0) scale3d(${scale}, ${scale}, 1)`;
     }
 
     if (overlay) {
-      if (isPageRevealed) {
+      if (isBracketsOffScreen) {
         overlay.style.display = "none";
       } else {
         overlay.style.display = "flex";
-        overlay.style.opacity = opacity;
+        const bgColor = `rgba(245, 245, 245, ${opacity})`;
+        overlay.style.backgroundColor = bgColor;
+        overlay.style.pointerEvents = opacity < 0.1 ? "none" : "auto";
       }
     }
 
     if (landingPageContent) {
       if (isBracketsOffScreen) {
-        landingPageContent.style.transform = "scale(1)";
-        landingPageContent.style.transformOrigin = "center";
+        const baseDuration = 1.2;
+        const velocityFactor = Math.min(
+          1.5,
+          Math.max(0.8, 1 / (scrollVelocity * 500 + 0.2))
+        );
+        const transitionDuration = baseDuration * velocityFactor;
+
+        landingPageContent.style.transition = `opacity ${transitionDuration}s ease-out`;
         landingPageContent.style.opacity = 1;
       } else {
-        landingPageContent.style.transform = `scale(${contentScale})`;
-        landingPageContent.style.transformOrigin = "center";
+        landingPageContent.style.transition = "none";
         landingPageContent.style.opacity = contentOpacity;
       }
     }
@@ -81,9 +108,9 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
 
       const delta = event.deltaY;
-      scrollCounter += delta * 0.5;
+      scrollCounter += delta * 1.4;
 
-      scrollCounter = Math.max(0, Math.min(maxScroll, scrollCounter));
+      scrollCounter = Math.max(0, scrollCounter);
 
       requestAnimationFrame(updateBrackets);
     },
@@ -112,8 +139,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const touchY = event.touches[0].clientY;
       const delta = touchStartY - touchY;
 
-      scrollCounter += delta * 0.3;
-      scrollCounter = Math.max(0, Math.min(maxScroll, scrollCounter));
+      scrollCounter += delta * 6;
+      scrollCounter = Math.max(0, scrollCounter);
 
       touchStartY = touchY;
       requestAnimationFrame(updateBrackets);
