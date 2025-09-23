@@ -1,16 +1,20 @@
-function isPartiallyInViewport(el) {
+function isMostlyOutOfViewport(el, ratio = 0.85) {
   const rect = el.getBoundingClientRect();
+  const viewHeight = document.documentElement.clientHeight;
+  const viewWidth = document.documentElement.clientWidth;
 
-  return (
-    rect.bottom >= 0 &&
-    rect.right >= 0 &&
-    rect.top <= document.documentElement.clientHeight &&
-    rect.left <= document.documentElement.clientWidth
+  const visibleX = Math.max(
+    0,
+    Math.min(viewWidth, rect.right) - Math.max(0, rect.left)
   );
-}
+  const visibleY = Math.max(
+    0,
+    Math.min(viewHeight, rect.bottom) - Math.max(0, rect.top)
+  );
+  const visibleArea = visibleX * visibleY;
+  const totalArea = rect.width * rect.height;
 
-function isCompletelyOutOfViewport(el) {
-  return !isPartiallyInViewport(el);
+  return totalArea > 0 && visibleArea / totalArea <= 1 - ratio;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -39,8 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const movement = Math.abs(scrollCounter) * 0.3;
     const screenWidth = window.innerWidth;
     const isBracketsOffScreen =
-      isCompletelyOutOfViewport(leftBracket) &&
-      isCompletelyOutOfViewport(rightBracket);
+      isMostlyOutOfViewport(leftBracket) && isMostlyOutOfViewport(rightBracket);
     const opacity = isBracketsOffScreen ? 0 : 1;
 
     const extendedMovement = isBracketsOffScreen
