@@ -1,0 +1,128 @@
+.arrow-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.klaviyo-form-container {
+  display: flex;
+  align-items: start;
+  gap: 10px;
+
+  .klaviyo-form-title {
+    display: none;
+    font-family: Manrope;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1;
+    width: 115px;
+
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
+}
+
+.klaviyo-email-input-container {
+  transform: translateY(-3px);
+
+  .klaviyo-email-input-underline {
+    position: relative;
+    height: 1px;
+    width: 100%;
+    background-color: var(--otsamo-grey);
+    margin-top: 10px;
+
+    &::after {
+      z-index: 1;
+      content: "";
+      height: 1px;
+      width: 0;
+      background-color: var(--primary-color);
+      position: absolute;
+      transition: width 0.3s ease-in-out;
+      bottom: 0;
+      left: 0;
+    }
+
+    &.active::after {
+      width: 100%;
+    }
+  }
+}
+
+.klaviyo-email-input-container-inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: 500px;
+  }
+}
+
+.klaviyo-email-input {
+  width: 100%;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+
+  &:focus {
+    outline: none !important;
+  }
+
+  &::placeholder {
+    color: var(--otsamo-grey);
+    font-family: Manrope;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    transform: translateY(2px);
+  }
+}
+
+#klaviyo-message {
+  font-family: Manrope;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 8px;
+  transition: color 0.3s ease;
+
+  &.error {
+    color: var(--error-color);
+  }
+
+  &.success {
+    color: var(--primary-color);
+  }
+}
+
+.klaviyo-success-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  p {
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--primary-color);
+    margin: 0;
+  }
+}
+
+.klaviyo-consent-message {
+  margin-top: 10px;
+  font-family: Manrope;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--secondary-color);
+
+  a {
+    color: var(--primary-color);
+    text-decoration: underline;
+  }
+}

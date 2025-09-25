@@ -1,0 +1,33 @@
+<div class="klaviyo-custom-wrapper">
+  <form id="klaviyo-custom-form">
+    <div class="klaviyo-form-container">
+      <p class="klaviyo-form-title">
+        Join the list
+      </p>
+
+      <div class="klaviyo-email-input-container">
+        <div class="klaviyo-email-input-container-inner">
+          <input
+            class="klaviyo-email-input"
+            id="klaviyo-email"
+            name="email"
+            placeholder="Enter your email" />
+
+          <button class="arrow-button" type="submit">{% render 'arrow-button-svg' %}</button>
+        </div>
+
+        <div class="klaviyo-email-input-underline"></div>
+
+        <div id="klaviyo-message"></div>
+
+        <div class="klaviyo-consent-message">
+          <p>By signing up, you agree to receive updates from OTSAMO and accept our
+            <a href="{{ shop.privacy_policy.url }}">Privacy Policy</a>
+            .</p>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  {{ 'klaviyo.js' | asset_url | script_tag }}
+</div>
