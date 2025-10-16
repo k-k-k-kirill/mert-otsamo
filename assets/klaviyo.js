@@ -17,7 +17,7 @@ const addFormSubmitListener = () => {
     if (!email || !emailRegex.test(email)) {
       messageDiv.textContent =
         "Please enter a valid email address (e.g., name@example.com).";
-      messageDiv.className = "error";
+      messageDiv.className = "error show";
       return false;
     }
 
@@ -81,14 +81,14 @@ const addFormSubmitListener = () => {
           return res.json().then((err) => {
             console.error("Klaviyo error:", err);
             messageDiv.textContent = "Subscription failed. Try again later.";
-            messageDiv.className = "error";
+            messageDiv.className = "error show";
           });
         }
       })
       .catch((err) => {
         console.error("Network error:", err);
         messageDiv.textContent = "Network error. Try again later.";
-        messageDiv.className = "error";
+        messageDiv.className = "error show";
       });
   });
 };

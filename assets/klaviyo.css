@@ -16,7 +16,6 @@
     font-style: normal;
     font-weight: 600;
     line-height: 1;
-    width: 115px;
 
     @media (min-width: 768px) {
       display: block;
@@ -63,11 +62,14 @@
 }
 
 .klaviyo-email-input {
+  height: 22px;
   width: 100%;
   border: none;
   padding: 0;
   margin: 0;
   background: none;
+  font-size: 16px;
+  font-family: Manrope;
 
   &:focus {
     outline: none !important;
@@ -84,11 +86,16 @@
 }
 
 #klaviyo-message {
+  display: none;
   font-family: Manrope;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
-  margin-top: 8px;
+  margin-top: 5px;
   transition: color 0.3s ease;
+
+  &.show {
+    display: block;
+  }
 
   &.error {
     color: var(--error-color);
@@ -115,7 +122,7 @@
 }
 
 .klaviyo-consent-message {
-  margin-top: 10px;
+  margin-top: 5px;
   font-family: Manrope;
   font-size: 12px;
   font-weight: 400;

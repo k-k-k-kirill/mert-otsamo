@@ -96,7 +96,7 @@
 
     {{ content_for_header }}
   </head>
-  <body>
+  <body class="{% if template == 'index' %}landing-page{% endif %}">
     <main class="main-content">
       {% section 'header' %}
 

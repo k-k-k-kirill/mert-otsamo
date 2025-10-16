@@ -18,9 +18,14 @@ function isMostlyOutOfViewport(el, ratio = 0.85) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Only run animation code on landing page
+  const overlay = document.querySelector(".logo-animation-overlay");
+  if (!overlay) {
+    return; // Exit early if not on landing page
+  }
+
   const leftBracket = document.querySelector("path#path-left");
   const rightBracket = document.querySelector("path#path-right");
-  const overlay = document.querySelector(".logo-animation-overlay");
   const landingPageContent = document.querySelector(".landing-page-container");
 
   let scrollCounter = 0;
@@ -77,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
         overlay.style.display = "none";
       } else {
         overlay.style.display = "flex";
-        const bgColor = `rgba(245, 245, 245, ${opacity})`;
+        const bgColor = `rgba(217, 235, 231, ${opacity})`;
         overlay.style.backgroundColor = bgColor;
         overlay.style.pointerEvents = opacity < 0.1 ? "none" : "auto";
       }
@@ -111,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
 
       const delta = event.deltaY;
-      scrollCounter += delta * 1.4;
+      scrollCounter += delta * 3.2;
 
       scrollCounter = Math.max(0, scrollCounter);
 
@@ -142,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const touchY = event.touches[0].clientY;
       const delta = touchStartY - touchY;
 
-      scrollCounter += delta * 6;
+      scrollCounter += delta * 5;
       scrollCounter = Math.max(0, scrollCounter);
 
       touchStartY = touchY;
