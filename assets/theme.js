@@ -33,6 +33,49 @@ document.addEventListener("DOMContentLoaded", function () {
   let lastScrollTime = Date.now();
   let scrollVelocity = 0;
   let lastScrollCounter = 0;
+  let hintTimeout = null;
+  let hintElement = null;
+
+  function createHint() {
+    if (hintElement) return; // Already exists
+
+    const logoAnimationContent = document.querySelector(
+      ".logo-animation-content"
+    );
+    if (!logoAnimationContent) return;
+
+    hintElement = document.createElement("div");
+    hintElement.className = "scroll-hint";
+    hintElement.innerHTML = `
+      <span class="desktop-text">Scroll to reveal</span>
+      <span class="mobile-text">Swipe up to reveal</span>
+    `;
+
+    logoAnimationContent.appendChild(hintElement);
+  }
+
+  function showHint() {
+    if (!hintElement) createHint();
+    // Force a reflow to ensure transition works
+    hintElement.offsetHeight;
+    hintElement.style.opacity = "0.7";
+  }
+
+  function hideHint() {
+    if (hintElement) {
+      hintElement.style.opacity = "0";
+    }
+  }
+
+  function startHintTimer() {
+    if (hintTimeout) clearTimeout(hintTimeout);
+
+    hintTimeout = setTimeout(() => {
+      if (!isPageRevealed) {
+        showHint();
+      }
+    }, 7000);
+  }
 
   function updateBrackets() {
     const currentTime = Date.now();
@@ -42,6 +85,11 @@ document.addEventListener("DOMContentLoaded", function () {
       scrollVelocity = Math.abs(scrollCounter - lastScrollCounter) / timeDelta;
       lastScrollTime = currentTime;
       lastScrollCounter = scrollCounter;
+    }
+
+    // Hide hint when user starts scrolling
+    if (scrollCounter > 0) {
+      hideHint();
     }
 
     const scale = Math.max(0.1, 1 + Math.abs(scrollCounter) * 0.001);
@@ -106,6 +154,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // Start the hint timer when page loads
+  startHintTimer();
+
   window.addEventListener(
     "wheel",
     function (event) {
@@ -119,6 +170,10 @@ document.addEventListener("DOMContentLoaded", function () {
       scrollCounter += delta * 3.2;
 
       scrollCounter = Math.max(0, scrollCounter);
+
+      // Hide hint and reset timer when user scrolls
+      hideHint();
+      startHintTimer();
 
       requestAnimationFrame(updateBrackets);
     },
@@ -149,6 +204,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       scrollCounter += delta * 5;
       scrollCounter = Math.max(0, scrollCounter);
+
+      // Hide hint and reset timer when user scrolls
+      hideHint();
+      startHintTimer();
 
       touchStartY = touchY;
       requestAnimationFrame(updateBrackets);

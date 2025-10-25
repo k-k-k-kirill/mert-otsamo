@@ -23,7 +23,7 @@ const addFormSubmitListener = () => {
 
     // 🔑 Replace with your values
     const companyId = "SrvfkS";
-    const listId = "TVTRCF";
+    const listId = "WrY47b";
 
     fetch(
       `https://a.klaviyo.com/client/subscriptions?company_id=${companyId}`,

@@ -161,6 +161,7 @@ h1 {
 }
 
 .logo-animation-content {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -197,6 +198,41 @@ h1 {
 
 .logo-animation-overlay:hover .click-to-reveal {
   opacity: 1;
+}
+
+.scroll-hint {
+  position: absolute;
+  color: var(--primary-color);
+  font-family: Manrope;
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+  text-align: center;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, calc(50% + 30px));
+  white-space: nowrap;
+  z-index: 2000003;
+}
+
+.scroll-hint .desktop-text {
+  display: block;
+}
+
+.scroll-hint .mobile-text {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .scroll-hint .desktop-text {
+    display: none;
+  }
+
+  .scroll-hint .mobile-text {
+    display: block;
+  }
 }
 
 .logo-animation-overlay svg {
