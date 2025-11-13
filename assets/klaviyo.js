@@ -21,7 +21,6 @@ const addFormSubmitListener = () => {
       return false;
     }
 
-    // 🔑 Replace with your values
     const companyId = "SrvfkS";
     const listId = "WrY47b";
 
