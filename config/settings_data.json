@@ -17,6 +17,12 @@
       "landing-page": {
         "type": "landing-page",
         "blocks": {
+          "slider_image_bK6X9W": {
+            "type": "slider_image",
+            "settings": {
+              "image": "shopify://shop_images/CROP_SUORISTETTU_8_8bit-sc-story-1080-1920.jpg"
+            }
+          },
           "slider_image_eziCV6": {
             "type": "slider_image",
             "settings": {
@@ -29,28 +35,29 @@
               "image": "shopify://shop_images/13_8bit-sc-story-1080-1920.jpg"
             }
           },
-          "slider_image_e44Hiw": {
-            "type": "slider_image",
-            "settings": {
-              "image": "shopify://shop_images/11_8bit-sc-story-1080-1920.jpg"
-            }
-          },
           "slider_image_Lw7YTH": {
             "type": "slider_image",
             "settings": {
               "image": "shopify://shop_images/12_8bit-sc-story-1080-1920.jpg"
             }
+          },
+          "slider_image_WKxatU": {
+            "type": "slider_image",
+            "settings": {
+              "image": "shopify://shop_images/2_8bit-sc-story-1080-1920.jpg"
+            }
           }
         },
         "block_order": [
+          "slider_image_bK6X9W",
           "slider_image_eziCV6",
           "slider_image_WVaeNJ",
-          "slider_image_e44Hiw",
-          "slider_image_Lw7YTH"
+          "slider_image_Lw7YTH",
+          "slider_image_WKxatU"
         ],
         "settings": {
-          "heading": "Introducing OTSAMO — elevated streetwear with a couture soul.",
-          "description": "<p>Rooted in Finnish minimalism and sculptural design, OTSAMO redefines the essential archetypes of clothing — the timeless pieces every wardrobe should have — reimagined through clarity, precision, and form.<br/><br/>Each piece is a tribute to craftsmanship, created from high-quality materials and designed to endure beyond season and trend.<br/>The result is a wardrobe of quiet strength and effortless structure — where streetwear meets the discipline of couture.<br/><br/>Made for those who move with intention and live beyond convention.<br/><br/>Coming soon.</p>"
+          "heading": "OTSAMO — elevated streetwear with a couture soul.",
+          "description": "<p>Rooted in Finnish minimalism and sculptural design, OTSAMO redefines the essential archetypes of clothing — the timeless pieces every wardrobe should have — reimagined through clarity, precision, and form.<br/><br/>Each piece is a tribute to craftsmanship, created from high-quality materials and designed to endure beyond season and trend. The result is a wardrobe of quiet strength and effortless structure — where streetwear meets the discipline of couture.<br/><br/>Made for those who move with intention and live beyond convention.<br/><br/>Coming soon.</p>"
         }
       },
       "footer": {

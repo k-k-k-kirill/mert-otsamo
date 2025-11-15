@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
         overlay.style.display = "none";
       } else {
         overlay.style.display = "flex";
-        const bgColor = `rgba(217, 235, 231, ${opacity})`;
+        const bgColor = `rgba(230, 231, 226, ${opacity})`;
         overlay.style.backgroundColor = bgColor;
         overlay.style.pointerEvents = opacity < 0.1 ? "none" : "auto";
       }
