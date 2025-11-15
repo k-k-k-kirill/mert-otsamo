@@ -1,18 +1,25 @@
 <section class="landing-page-container">
-  <div class="landing-page-content">
-    <header>
-      <h1 class="landing-page-title">
-        {{ section.settings.heading }}
-      </h1>
-    </header>
+  <div class="landing-page-wrapper">
+    <div class="landing-page-slider-column">
+      {% render 'image-slider' %}
+    </div>
+    <div class="landing-page-content-column">
+      <div class="landing-page-content">
+        <header>
+          <h1 class="landing-page-title">
+            {{ section.settings.heading }}
+          </h1>
+        </header>
 
-    <section class="landing-page-description-container">
-      <p class="landing-page-description">
-        {{ section.settings.description }}
-      </p>
-    </section>
+        <section class="landing-page-description-container">
+          <p class="landing-page-description">
+            {{ section.settings.description }}
+          </p>
+        </section>
 
-    {% render 'klaviyo-form' %}
+        {% render 'klaviyo-form' %}
+      </div>
+    </div>
   </div>
 </section>
 
@@ -25,6 +32,7 @@
 {% schema %}
   {
     "name": "Landing Page",
+    "max_blocks": 50,
     "settings": [
       {
         "type": "text",
@@ -36,6 +44,19 @@
         "id": "description",
         "label": "Description",
         "default": "<p>OTSAMO is a fashion label...</p>"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slider_image",
+        "name": "Slider Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+        ]
       }
     ],
     "presets": [
