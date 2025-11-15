@@ -111,12 +111,13 @@ h1 {
   height: 100%;
   gap: 40px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   @media (min-width: 768px) {
     flex-direction: row;
     gap: 60px;
     align-items: stretch;
+    justify-content: center;
   }
 }
 
@@ -125,11 +126,14 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
+  order: 1;
+  margin-bottom: 40px;
 
   @media (min-width: 768px) {
     width: 50%;
     max-width: 600px;
+    order: 0;
+    margin-bottom: 0;
   }
 }
 
@@ -138,11 +142,12 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
+  order: 2;
 
   @media (min-width: 768px) {
     width: 50%;
     max-width: 600px;
+    order: 0;
   }
 }
 

@@ -26,7 +26,7 @@
 
       const sliderElement = document.querySelector('.landing-page-slider');
       if (!sliderElement) return;
-
+      
       new Swiper('.landing-page-slider', {
         loop: true,
         autoplay: {
@@ -37,7 +37,12 @@
         fadeEffect: {
           crossFade: true
         },
+        slidesPerView: 1,
+        spaceBetween: 0,
+        touchEventsTarget: 'container',
+        allowTouchMove: true,
         speed: 1000,
+        grabCursor: true,
       });
     }
 
