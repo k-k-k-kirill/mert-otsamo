@@ -92,6 +92,9 @@
       <!-- Styles -->
     <link rel="stylesheet" href="{{ 'theme.css' |  asset_url }}">
     <link rel="stylesheet" href="{{ 'klaviyo.css' |  asset_url }}">
+    {% if template contains 'collection' %}
+      <link rel="stylesheet" href="{{ 'collection.css' | asset_url }}">
+    {% endif %}
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
@@ -122,6 +125,14 @@
     </script>
 
     {{ content_for_header }}
+
+    {% comment %} Only redirect in production (otsamo.eu), not on localhost or preview domains {% endcomment %}
+    {% if template != 'index' and request.host contains 'otsamo.eu' %}
+      <script>
+        window.location.href = '/';
+      </script>
+    {% endif %}
+
   </head>
   
 

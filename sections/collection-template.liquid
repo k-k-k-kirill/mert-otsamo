@@ -1,0 +1,107 @@
+{% paginate collection.products by 6 %}
+  <div class="collection-page">
+    {% if collection.title != blank %}
+      <h1 class="collection-title">{{ collection.title }}</h1>
+    {% endif %}
+
+    {% if collection.description != blank %}
+      <div class="collection-description">
+        {{ collection.description }}
+      </div>
+    {% endif %}
+
+    {% if collection.products.size > 0 %}
+      <div class="products-grid">
+        {% for product in collection.products %}
+          <div class="product-card">
+            <a href="{{ product.url }}" class="product-link{% if product.images.size > 1 %} product-link--has-multiple-images{% endif %}">
+              {% if product.featured_image %}
+                <div class="product-image-wrapper">
+                  <img
+                    src="{{ product.featured_image | img_url: '600x600' }}"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    class="product-image product-image--primary"
+                    loading="lazy">
+                  {% if product.images.size > 1 %}
+                    <img
+                      src="{{ product.images[1] | img_url: '600x600' }}"
+                      alt="{{ product.images[1].alt | escape }}"
+                      class="product-image product-image--secondary"
+                      loading="lazy">
+                  {% endif %}
+                </div>
+              {% endif %}
+              <div class="product-info">
+                <h2 class="product-title">{{ product.title }}</h2>
+                {% if product.variants.size > 0 %}
+                  <ul class="product-sizes">
+                    {% for variant in product.variants %}
+                      <li class="product-size{% if variant.available %} product-size--available{% else %} product-size--unavailable{% endif %}">
+                        {{ variant.option1 }}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+                <div class="product-price">
+                  {{ product.price | money }}
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if paginate.pages > 1 %}
+        <nav class="pagination" role="navigation" aria-label="Pagination">
+          <ul class="pagination-list">
+            {% if paginate.previous %}
+              <li class="pagination-item">
+                <a href="{{ paginate.previous.url }}" class="pagination-link pagination-link--prev" aria-label="Previous page">
+                  ←
+                </a>
+              </li>
+            {% endif %}
+
+            {% for part in paginate.parts %}
+              {% if part.is_link %}
+                <li class="pagination-item">
+                  <a href="{{ part.url }}" class="pagination-link">{{ part.title }}</a>
+                </li>
+              {% else %}
+                {% if part.title == paginate.current_page %}
+                  <li class="pagination-item">
+                    <span class="pagination-link pagination-link--current" aria-current="page">{{ part.title }}</span>
+                  </li>
+                {% else %}
+                  <li class="pagination-item">
+                    <span class="pagination-link pagination-link--ellipsis">{{ part.title }}</span>
+                  </li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+
+            {% if paginate.next %}
+              <li class="pagination-item">
+                <a href="{{ paginate.next.url }}" class="pagination-link pagination-link--next" aria-label="Next page">
+                  →
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </nav>
+      {% endif %}
+    {% else %}
+      <div class="collection-empty">
+        <p>No products found in this collection.</p>
+      </div>
+    {% endif %}
+  </div>
+{% endpaginate %}
+
+{% schema %}
+  {
+    "name": "Collection Template",
+    "settings": []
+  }
+{% endschema %}
+
