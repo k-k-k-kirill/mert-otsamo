@@ -1,0 +1,118 @@
+<div class="product-page">
+  <div class="product-page-wrapper">
+    <div class="product-gallery">
+      <div class="product-gallery-main">
+        {% if product.featured_image %}
+          <img
+            id="product-main-image"
+            src="{{ product.featured_image | img_url: '1200x1200' }}"
+            alt="{{ product.featured_image.alt | escape }}"
+            class="product-main-image">
+        {% endif %}
+      </div>
+      {% if product.images.size > 1 %}
+        <div class="product-gallery-thumbnails">
+          {% for image in product.images %}
+            <button
+              type="button"
+              class="product-thumbnail{% if forloop.first %} product-thumbnail--active{% endif %}"
+              data-image-index="{{ forloop.index0 }}"
+              aria-label="View image {{ forloop.index }}">
+              <img
+                src="{{ image | img_url: '200x200' }}"
+                alt="{{ image.alt | escape }}"
+                class="product-thumbnail-image">
+            </button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="product-details">
+      <h1 class="product-details-title">{{ product.title }}</h1>
+
+      <div class="product-details-price">
+        {{ product.price | money }}
+      </div>
+
+      {% if product.description != blank %}
+        <div class="product-details-description">
+          {{ product.description }}
+        </div>
+      {% endif %}
+
+      <form action="/cart/add" method="post" enctype="multipart/form-data" id="product-form">
+        {% if product.variants.size > 1 %}
+          <div class="product-variant-selector">
+            <label for="product-variant-select" class="product-variant-label">Size</label>
+            <select
+              name="id"
+              id="product-variant-select"
+              class="product-variant-select">
+              {% for variant in product.variants %}
+                <option
+                  value="{{ variant.id }}"
+                  {% unless variant.available %}disabled{% endunless %}>
+                  {{ variant.option1 }}{% unless variant.available %} - Sold Out{% endunless %}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        {% else %}
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+        {% endif %}
+
+        <button
+          type="submit"
+          name="add"
+          class="product-add-to-cart"
+          {% unless product.available %}disabled{% endunless %}>
+          {% if product.available %}
+            Add to Cart
+          {% else %}
+            Sold Out
+          {% endif %}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const thumbnails = document.querySelectorAll('.product-thumbnail');
+    const mainImage = document.getElementById('product-main-image');
+    const productImages = [
+      {% for image in product.images %}
+        {
+          src: '{{ image | img_url: "1200x1200" }}',
+          alt: '{{ image.alt | escape }}'
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+
+    if (thumbnails.length > 0 && mainImage) {
+      thumbnails.forEach(function(thumbnail, index) {
+        thumbnail.addEventListener('click', function() {
+          // Update main image
+          mainImage.src = productImages[index].src;
+          mainImage.alt = productImages[index].alt;
+
+          // Update active thumbnail
+          thumbnails.forEach(function(thumb) {
+            thumb.classList.remove('product-thumbnail--active');
+          });
+          thumbnail.classList.add('product-thumbnail--active');
+        });
+      });
+    }
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Product Template",
+    "settings": []
+  }
+{% endschema %}
+
