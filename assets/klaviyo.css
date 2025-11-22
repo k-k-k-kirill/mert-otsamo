@@ -16,15 +16,11 @@
     font-style: normal;
     font-weight: 600;
     line-height: 1;
-
-    @media (max-width: 1255px) {
-      display: none;
-    }
-
-    @media (min-width: 1256px) {
-      display: block;
-    }
   }
+
+.footer .klaviyo-form-title {
+  display: none !important;
+}
 }
 
 .klaviyo-email-input-container {

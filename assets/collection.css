@@ -9,12 +9,18 @@
   font-family: Manrope;
   font-weight: 600;
   font-style: normal;
-  font-size: 80px;
+  font-size: 36px;
   line-height: 120%;
-  letter-spacing: -2%;
+  letter-spacing: -1%;
   margin-bottom: 20px;
+  margin-top: 70px;
   text-align: left;
   text-transform: uppercase;
+
+  @media (min-width: 768px) {
+    font-size: 80px;
+    letter-spacing: -2%;
+  }
 }
 
 .collection-description {

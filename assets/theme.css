@@ -300,6 +300,12 @@ h1 {
   padding-top: 30px;
   margin-bottom: 32px;
   position: relative;
+
+  @media (min-width: 1024px) {
+    min-height: 86px;
+    display: flex;
+    align-items: center;
+  }
 }
 
 .site-header-wrapper {
@@ -328,17 +334,34 @@ h1 {
 .site-nav-link {
   color: var(--primary-color);
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 140%;
-  letter-spacing: -0.12px;
+  line-height: 130%;
+  letter-spacing: 3%;
+  text-transform: uppercase;
   text-decoration: none;
   transition: opacity 0.3s ease;
+  position: relative;
+}
+
+.site-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
 }
 
 .site-nav-link:hover {
-  opacity: 0.7;
+  opacity: 1;
+}
+
+.site-nav-link:hover::after {
+  width: 100%;
 }
 
 .site-logo {
@@ -359,17 +382,34 @@ h1 {
 .site-cart-link {
   color: var(--primary-color);
   font-family: Manrope;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 140%;
-  letter-spacing: -0.12px;
+  line-height: 130%;
+  letter-spacing: 3%;
+  text-transform: uppercase;
   text-decoration: none;
   transition: opacity 0.3s ease;
+  position: relative;
+}
+
+.site-cart-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
 }
 
 .site-cart-link:hover {
-  opacity: 0.7;
+  opacity: 1;
+}
+
+.site-cart-link:hover::after {
+  width: 100%;
 }
 
 .logo-animation-overlay {
@@ -534,40 +574,145 @@ h1 {
 footer.footer,
 #shopify-section-footer {
   width: 100vw;
-  margin-left: calc(-50vw + 50%);
   box-sizing: border-box;
   flex-shrink: 0;
 }
 
 .footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding-bottom: 30px;
-  padding-top: 24px;
+  padding-top: 0;
   box-sizing: border-box;
   width: 100%;
+}
 
+.footer-divider {
+  height: 1px;
+  background-color: #D2D2D2;
+  margin-bottom: 41px;
+  width: 100%;
+}
+
+.footer-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+  }
+}
+
+.footer-left {
+  flex: 1;
+}
+
+.footer-newsletter-title {
+  font-family: Manrope;
+  font-size: 18px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 130%;
+  color: var(--primary-color);
+  margin: 0 0 20px 0;
+}
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 60px;
+  }
+}
+
+.footer-links-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    gap: 60px;
+  }
+}
+
+.footer-links-column {
   .footer-nav {
     ul {
       display: flex;
-      gap: 24px;
+      flex-direction: column;
+      gap: 8px;
       margin: 0;
+      padding: 0;
+      list-style: none;
 
       li {
         list-style: none;
       }
+
+      a {
+        color: var(--primary-color);
+        font-family: Manrope;
+        font-size: 12px;
+        font-weight: 400;
+        font-style: normal;
+        line-height: 140%;
+        letter-spacing: 2%;
+        text-decoration: none;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
     }
   }
+}
 
-  .footer-copyright {
-    color: var(--secondary-color);
-    text-align: center;
-    font-family: Manrope;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 140%;
-    letter-spacing: -0.12px;
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-email {
+  color: var(--primary-color);
+  font-family: Manrope;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.7;
   }
+}
+
+.footer-copyright-wrapper {
+  margin-top: 50px;
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-copyright {
+  color: var(--secondary-color);
+  font-family: Manrope;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: -0.12px;
+  display: block;
+  text-align: left;
 }
