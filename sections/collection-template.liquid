@@ -76,13 +76,51 @@
                   </div>
                 </div>
                 {% if product.variants.size > 0 %}
-                  <ul class="product-sizes">
-                    {% for variant in product.variants %}
-                      <li class="product-size{% if variant.available %} product-size--available{% else %} product-size--unavailable{% endif %}">
-                        {{ variant.option1 }}
-                      </li>
-                    {% endfor %}
-                  </ul>
+                  {% comment %} Get unique sizes by checking each size individually {% endcomment %}
+                  {% assign unique_sizes_list = '' %}
+                  {% for variant in product.variants %}
+                    {% assign current_size = variant.option1 %}
+                    {% assign size_exists = false %}
+                    
+                    {% comment %} Check if this size already exists in our list {% endcomment %}
+                    {% if unique_sizes_list != '' %}
+                      {% assign existing_sizes = unique_sizes_list | split: '|||' %}
+                      {% for existing_size in existing_sizes %}
+                        {% if existing_size == current_size %}
+                          {% assign size_exists = true %}
+                          {% break %}
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                    
+                    {% comment %} Add size if it doesn't exist {% endcomment %}
+                    {% unless size_exists %}
+                      {% if unique_sizes_list == '' %}
+                        {% assign unique_sizes_list = current_size %}
+                      {% else %}
+                        {% assign unique_sizes_list = unique_sizes_list | append: '|||' | append: current_size %}
+                      {% endif %}
+                    {% endunless %}
+                  {% endfor %}
+                  
+                  {% comment %} Display unique sizes with availability {% endcomment %}
+                  {% if unique_sizes_list != '' %}
+                    <ul class="product-sizes">
+                      {% assign sizes_array = unique_sizes_list | split: '|||' %}
+                      {% for size in sizes_array %}
+                        {% assign size_available = false %}
+                        {% for variant in product.variants %}
+                          {% if variant.option1 == size and variant.available %}
+                            {% assign size_available = true %}
+                            {% break %}
+                          {% endif %}
+                        {% endfor %}
+                        <li class="product-size{% if size_available %} product-size--available{% else %} product-size--unavailable{% endif %}">
+                          {{ size }}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
                 {% endif %}
               </div>
             </a>

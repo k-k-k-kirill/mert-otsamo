@@ -97,6 +97,24 @@
   font-weight: 400;
   line-height: 140%;
   color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cart-item-color,
+.cart-item-size {
+  font-family: Manrope;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  color: var(--secondary-color);
+}
+
+.cart-item-separator {
+  color: var(--secondary-color);
+  opacity: 0.5;
 }
 
 .cart-item-price {

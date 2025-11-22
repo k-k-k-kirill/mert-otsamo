@@ -19,7 +19,19 @@
                 <a href="{{ item.url }}">{{ item.product.title }}</a>
               </h2>
               {% unless item.product.has_only_default_variant %}
-                <div class="cart-item-variant">{{ item.variant.title }}</div>
+                <div class="cart-item-variant">
+                  {% if item.variant.option2 %}
+                    <span class="cart-item-color">Color: {{ item.variant.option2 }}</span>
+                    {% if item.variant.option1 %}
+                      <span class="cart-item-separator"> / </span>
+                      <span class="cart-item-size">Size: {{ item.variant.option1 }}</span>
+                    {% endif %}
+                  {% elsif item.variant.option1 %}
+                    <span class="cart-item-size">Size: {{ item.variant.option1 }}</span>
+                  {% else %}
+                    {{ item.variant.title }}
+                  {% endif %}
+                </div>
               {% endunless %}
               <div class="cart-item-price">{{ item.price | money }}</div>
             </div>

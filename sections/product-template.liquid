@@ -5,7 +5,7 @@
         {% if product.featured_image %}
           <img
             id="product-main-image"
-            src="{{ product.featured_image | img_url: '1200x1200' }}"
+            src="{{ product.featured_image | img_url: '635x775' }}"
             alt="{{ product.featured_image.alt | escape }}"
             class="product-main-image">
         {% endif %}
@@ -19,7 +19,7 @@
               data-image-index="{{ forloop.index0 }}"
               aria-label="View image {{ forloop.index }}">
               <img
-                src="{{ image | img_url: '200x200' }}"
+                src="{{ image | img_url: '95x116' }}"
                 alt="{{ image.alt | escape }}"
                 class="product-thumbnail-image">
             </button>
@@ -29,10 +29,33 @@
     </div>
 
     <div class="product-details">
-      <h1 class="product-details-title">{{ product.title }}</h1>
-
-      <div class="product-details-price">
-        {{ product.price | money }}
+      <div class="product-details-title-price">
+        <h1 class="product-details-title">{{ product.title }}</h1>
+        <div class="product-details-price">
+          {% assign has_discount = false %}
+          {% assign compare_price = product.compare_at_price_min %}
+          {% assign current_price = product.price_min %}
+          
+          {% if product.compare_at_price_min > product.price_min %}
+            {% assign has_discount = true %}
+          {% elsif product.variants.size > 0 %}
+            {% for variant in product.variants %}
+              {% if variant.compare_at_price > variant.price %}
+                {% assign has_discount = true %}
+                {% assign compare_price = variant.compare_at_price %}
+                {% assign current_price = variant.price %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          
+          {% if has_discount %}
+            <span class="product-details-price-old">{{ compare_price | money }}</span>
+            <span class="product-details-price-new">{{ current_price | money }}</span>
+          {% else %}
+            {{ product.price_min | money }}
+          {% endif %}
+        </div>
       </div>
 
       {% if product.description != blank %}
@@ -43,20 +66,148 @@
 
       <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" id="product-form">
         {% if product.variants.size > 1 %}
-          <div class="product-variant-selector">
-            <label for="product-variant-select" class="product-variant-label">Size</label>
-            <select
-              name="id"
-              id="product-variant-select"
-              class="product-variant-select">
-              {% for variant in product.variants %}
-                <option
-                  value="{{ variant.id }}"
-                  {% unless variant.available %}disabled{% endunless %}>
-                  {{ variant.option1 }}{% unless variant.available %} - Sold Out{% endunless %}
-                </option>
+          {% assign first_available_variant = null %}
+          {% for variant in product.variants %}
+            {% if variant.available and first_available_variant == null %}
+              {% assign first_available_variant = variant %}
+            {% endif %}
+          {% endfor %}
+          {% if first_available_variant == null %}
+            {% assign first_available_variant = product.variants.first %}
+          {% endif %}
+          
+          {% comment %} Check if product has color variants (option2) {% endcomment %}
+          {% assign has_colors = false %}
+          {% if product.options.size > 1 %}
+            {% assign has_colors = true %}
+          {% endif %}
+          
+          {% if has_colors %}
+            {% comment %} Get unique colors with hex values from Shopify Color metaobject/swatch system {% endcomment %}
+            {% assign seen_colors = '' %}
+            {% assign color_list = '' %}
+            {% for variant in product.variants %}
+              {% assign color = variant.option2 %}
+              {% assign color_hex = '' %}
+              
+              {% comment %} Get color hex from Shopify Color metaobject/swatch system {% endcomment %}
+              {% for option in product.options_with_values %}
+                {% if option.name == 'Color' %}
+                  {% for value in option.values %}
+                    {% if value.name == variant.option2 %}
+                      {% if value.swatch and value.swatch.color %}
+                        {% assign color_hex = value.swatch.color %}
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
               {% endfor %}
-            </select>
+              
+              {% comment %} Fallback to metafield or color name if swatch not available {% endcomment %}
+              {% if color_hex == '' %}
+                {% assign color_hex = variant.metafields.custom.swatch | default: variant.metafields.custom.color_hex | default: color %}
+              {% endif %}
+              
+              {% assign color_marker = '|COLOR|' | append: color | append: '|COLOR|' %}
+              {% unless seen_colors contains color_marker %}
+                {% if seen_colors == '' %}
+                  {% assign seen_colors = color_marker %}
+                  {% assign color_list = color | append: '::' | append: color_hex %}
+                {% else %}
+                  {% assign seen_colors = seen_colors | append: color_marker %}
+                  {% assign color_list = color_list | append: '|||' | append: color | append: '::' | append: color_hex %}
+                {% endif %}
+              {% endunless %}
+            {% endfor %}
+            
+            <div class="product-variant-selector">
+              <label class="product-variant-label">Color:</label>
+              <div class="product-color-buttons">
+                {% if color_list != '' %}
+                  {% assign colors_array = color_list | split: '|||' %}
+                  {% for color_pair in colors_array %}
+                    {% assign color_parts = color_pair | split: '::' %}
+                    {% assign color_name = color_parts[0] %}
+                    {% assign color_value = color_parts[1] | default: color_name %}
+                    <button
+                      type="button"
+                      class="product-color-button{% if color_name == first_available_variant.option2 %} product-color-button--active{% endif %}"
+                      data-color="{{ color_name | escape }}">
+                      <span class="product-color-swatch" data-color-name="{{ color_name | escape }}" data-color-value="{{ color_value | escape }}"></span>
+                    </button>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+          
+          {% comment %} Get unique sizes {% endcomment %}
+          {% assign unique_sizes = '' %}
+          {% for variant in product.variants %}
+            {% assign size = variant.option1 %}
+            {% unless unique_sizes contains size %}
+              {% if unique_sizes == '' %}
+                {% assign unique_sizes = size %}
+              {% else %}
+                {% assign unique_sizes = unique_sizes | append: '|' | append: size %}
+              {% endif %}
+            {% endunless %}
+          {% endfor %}
+          
+          <div class="product-variant-selector">
+            <label class="product-variant-label">Size:</label>
+            <div class="product-size-buttons">
+              {% assign sizes_array = unique_sizes | split: '|' %}
+              {% for size in sizes_array %}
+                {% comment %} Find first available variant with this size (any color) {% endcomment %}
+                {% assign variant_for_size = null %}
+                {% assign any_available_variant_for_size = null %}
+                
+                {% comment %} Check ALL variants with this size to find any available one {% endcomment %}
+                {% for variant in product.variants %}
+                  {% if variant.option1 == size %}
+                    {% comment %} Track first variant with this size (for data attributes) {% endcomment %}
+                    {% if variant_for_size == null %}
+                      {% assign variant_for_size = variant %}
+                    {% endif %}
+                    {% comment %} Track first AVAILABLE variant with this size (for enabling button) {% endcomment %}
+                    {% if variant.available and any_available_variant_for_size == null %}
+                      {% assign any_available_variant_for_size = variant %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+                
+                {% comment %} Prefer variant with selected color if available {% endcomment %}
+                {% if has_colors and any_available_variant_for_size %}
+                  {% for variant in product.variants %}
+                    {% if variant.option1 == size and variant.option2 == first_available_variant.option2 and variant.available %}
+                      {% assign variant_for_size = variant %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+                
+                {% comment %} Use available variant for data if found {% endcomment %}
+                {% if any_available_variant_for_size and variant_for_size.available == false %}
+                  {% assign variant_for_size = any_available_variant_for_size %}
+                {% endif %}
+                
+                <button
+                  type="button"
+                  class="product-size-button{% unless any_available_variant_for_size %} product-size-button--unavailable{% endunless %}{% if variant_for_size.id == first_available_variant.id %} product-size-button--active{% endif %}"
+                  data-size="{{ size }}"
+                  data-variant-id="{{ variant_for_size.id }}"
+                  {% if has_colors %}data-color="{{ variant_for_size.option2 }}"{% endif %}
+                  data-all-variants="{% for variant in product.variants %}{% if variant.option1 == size %}{{ variant.id }}:{{ variant.option2 }}:{{ variant.available }}{% unless forloop.last %}|{% endunless %}{% endif %}{% endfor %}"
+                  {% unless any_available_variant_for_size %}disabled{% endunless %}>
+                  {{ size }}
+                </button>
+              {% endfor %}
+            </div>
+            <input type="hidden" name="id" id="product-variant-id" value="{{ first_available_variant.id }}">
+            {% if has_colors %}
+              <input type="hidden" id="selected-color" value="{{ first_available_variant.option2 }}">
+            {% endif %}
           </div>
         {% else %}
           <input type="hidden" name="id" value="{{ product.variants.first.id }}">
@@ -78,36 +229,44 @@
   </div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const thumbnails = document.querySelectorAll('.product-thumbnail');
-    const mainImage = document.getElementById('product-main-image');
-    const productImages = [
-      {% for image in product.images %}
-        {
-          src: '{{ image | img_url: "1200x1200" }}',
-          alt: '{{ image.alt | escape }}'
-        }{% unless forloop.last %},{% endunless %}
-      {% endfor %}
-    ];
-
-    if (thumbnails.length > 0 && mainImage) {
-      thumbnails.forEach(function(thumbnail, index) {
-        thumbnail.addEventListener('click', function() {
-          // Update main image
-          mainImage.src = productImages[index].src;
-          mainImage.alt = productImages[index].alt;
-
-          // Update active thumbnail
-          thumbnails.forEach(function(thumb) {
-            thumb.classList.remove('product-thumbnail--active');
-          });
-          thumbnail.classList.add('product-thumbnail--active');
-        });
-      });
-    }
-  });
+{% comment %} Pass product data to JavaScript via JSON {% endcomment %}
+<script type="application/json" id="product-data">
+{
+  "images": [
+    {% for image in product.images %}
+      {
+        "src": "{{ image | img_url: '635x775' }}",
+        "alt": "{{ image.alt | escape }}"
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  "variants": [
+    {% for variant in product.variants %}
+      {%- assign color_hex = '' -%}
+      {%- for option in product.options_with_values -%}
+        {%- if option.name == 'Color' -%}
+          {%- for value in option.values -%}
+            {%- if value.name == variant.option2 -%}
+              {%- if value.swatch and value.swatch.color -%}
+                {%- assign color_hex = value.swatch.color -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {
+        "id": {{ variant.id }},
+        "option1": "{{ variant.option1 | escape }}",
+        "option2": "{{ variant.option2 | escape }}",
+        "available": {{ variant.available | json }},
+        "color_hex": {{ color_hex | json }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
 </script>
+
+<script src="{{ 'product.js' | asset_url }}" defer></script>
 
 {% schema %}
   {
