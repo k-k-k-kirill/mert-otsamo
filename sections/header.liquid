@@ -1,8 +1,18 @@
 <header class="site-header">
-  <a href="/" class="site-logo">
-    <img
-      class="site-logo-image"
-      src="{{ 'logo-text-1.svg' | asset_url }}"
-      alt="Mert Otsamo" />
-  </a>
+  <div class="site-header-wrapper container">
+    <div class="site-header-left">
+      <a href="/collections/all" class="site-nav-link">Shop</a>
+    </div>
+    <a href="/" class="site-logo">
+      <img
+        class="site-logo-image"
+        src="{{ 'logo-text-1.svg' | asset_url }}"
+        alt="Mert Otsamo" />
+    </a>
+    <div class="site-header-right">
+      <a href="/cart" class="site-cart-link">
+        Cart ({{ cart.item_count }})
+      </a>
+    </div>
+  </div>
 </header>

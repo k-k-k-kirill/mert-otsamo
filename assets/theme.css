@@ -4,6 +4,24 @@
   --secondary-color: #999;
   --otsamo-grey: #8d8d8d;
   --error-color: #d32f2f;
+  --container-max-width: 1520px;
+  --sold-out-bg: #E6E6E6;
+  --sold-out-border: #949393;
+  --discount-old-price: #B7B6B6;
+  --discount-new-price: #C50000;
+}
+
+.shopify-section {
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
 }
 
 .logo-animation-overlay svg {
@@ -15,8 +33,12 @@
   transition: transform 0.4s ease-out;
 }
 
-body,
 html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
   color: var(--primary-color);
   margin: 0;
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
@@ -27,8 +49,10 @@ html {
   font-weight: 400;
   line-height: 140%;
   background-color: var(--background-color);
-  height: 100%;
-  overflow: auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
   overflow-x: hidden;
   box-sizing: border-box;
 }
@@ -63,8 +87,8 @@ a,
   }
 }
 
-.main-content {
-  height: 100%;
+main.main-content {
+  flex: 1 0 auto;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -72,13 +96,20 @@ a,
   padding-right: 20px;
   padding-left: 20px;
   box-sizing: border-box;
-  overflow: auto;
   overflow-x: hidden;
 
   #shopify-section-landing-page {
     flex-grow: 1;
     width: 100%;
   }
+}
+
+header.site-header,
+#shopify-section-header {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 h1 {
@@ -265,19 +296,80 @@ h1 {
 }
 
 .site-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
   padding-top: 30px;
   margin-bottom: 32px;
+  position: relative;
+}
 
-  .site-logo-image {
-    height: 16px;
+.site-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
 
-    @media (min-width: 768px) {
-      height: 20px;
-    }
+.site-header-left,
+.site-header-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.site-header-left {
+  justify-content: flex-start;
+}
+
+.site-header-right {
+  justify-content: flex-end;
+}
+
+.site-nav-link {
+  color: var(--primary-color);
+  font-family: Manrope;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: -0.12px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.site-nav-link:hover {
+  opacity: 0.7;
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.site-logo-image {
+  height: 16px;
+
+  @media (min-width: 768px) {
+    height: 20px;
   }
+}
+
+.site-cart-link {
+  color: var(--primary-color);
+  font-family: Manrope;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: -0.12px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.site-cart-link:hover {
+  opacity: 0.7;
 }
 
 .logo-animation-overlay {
@@ -286,7 +378,7 @@ h1 {
   position: fixed;
   top: 0;
   left: 0;
-  display: flex;
+  display: none; /* Hidden by default, shown only in production via JS */
   justify-content: center;
   align-items: center;
   background-color: var(--background-color);
@@ -439,17 +531,22 @@ h1 {
   }
 }
 
-.footer {
+footer.footer,
+#shopify-section-footer {
   width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 20px;
-  padding-right: 20px;
   padding-bottom: 30px;
-  box-sizing: border-box;
   padding-top: 24px;
-
+  box-sizing: border-box;
+  width: 100%;
 
   .footer-nav {
     ul {

@@ -18,11 +18,30 @@ function isMostlyOutOfViewport(el, ratio = 0.85) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Only run animation code on landing page
+  // Only run animation code on landing page and in production
   const overlay = document.querySelector(".logo-animation-overlay");
   if (!overlay) {
     return; // Exit early if not on landing page
   }
+
+  // Disable animation on localhost/preview domains
+  const hostname = window.location.hostname;
+  const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1' || hostname.startsWith('127.0.0.1');
+  const isProduction = hostname.includes('otsamo.eu');
+  
+  if (isLocalhost || !isProduction) {
+    // Hide overlay immediately on local/preview
+    overlay.style.display = 'none';
+    overlay.style.pointerEvents = 'none';
+    const landingPageContent = document.querySelector(".landing-page-container");
+    if (landingPageContent) {
+      landingPageContent.style.opacity = '1';
+    }
+    return; // Exit early on local/preview
+  }
+
+  // Show overlay in production
+  overlay.style.display = 'flex';
 
   const leftBracket = document.querySelector("path#path-left");
   const rightBracket = document.querySelector("path#path-right");

@@ -1,7 +1,8 @@
 {% paginate collection.products by 6 %}
   <div class="collection-page">
-    {% if collection.title != blank %}
-      <h1 class="collection-title">{{ collection.title }}</h1>
+    {% assign collection_title = collection.metafields.custom.collection_alias | default: collection.title %}
+    {% if collection_title != blank %}
+      <h1 class="collection-title">{{ collection_title }}</h1>
     {% endif %}
 
     {% if collection.description != blank %}
@@ -13,18 +14,49 @@
     {% if collection.products.size > 0 %}
       <div class="products-grid">
         {% for product in collection.products %}
+          {% assign all_variants_unavailable = true %}
+          {% assign has_discount = false %}
+          {% assign compare_price = product.compare_at_price_min %}
+          {% assign current_price = product.price_min %}
+          
+          {% if product.compare_at_price_min > product.price_min %}
+            {% assign has_discount = true %}
+          {% elsif product.variants.size > 0 %}
+            {% for variant in product.variants %}
+              {% if variant.compare_at_price > variant.price %}
+                {% assign has_discount = true %}
+                {% assign compare_price = variant.compare_at_price %}
+                {% assign current_price = variant.price %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          
+          {% for variant in product.variants %}
+            {% if variant.available %}
+              {% assign all_variants_unavailable = false %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
           <div class="product-card">
             <a href="{{ product.url }}" class="product-link{% if product.images.size > 1 %} product-link--has-multiple-images{% endif %}">
               {% if product.featured_image %}
                 <div class="product-image-wrapper">
+                  {% if all_variants_unavailable %}
+                    <div class="product-sold-out-badge">SOLD OUT</div>
+                  {% endif %}
                   <img
-                    src="{{ product.featured_image | img_url: '600x600' }}"
+                    width="493"
+                    height="616"
+                    src="{{ product.featured_image | img_url: '493x616' }}"
                     alt="{{ product.featured_image.alt | escape }}"
                     class="product-image product-image--primary"
                     loading="lazy">
                   {% if product.images.size > 1 %}
                     <img
-                      src="{{ product.images[1] | img_url: '600x600' }}"
+                      width="493"
+                      height="616"
+                      src="{{ product.images[1] | img_url: '493x616' }}"
                       alt="{{ product.images[1].alt | escape }}"
                       class="product-image product-image--secondary"
                       loading="lazy">
@@ -32,7 +64,17 @@
                 </div>
               {% endif %}
               <div class="product-info">
-                <h2 class="product-title">{{ product.title }}</h2>
+                <div class="product-title-price">
+                  <h2 class="product-title">{{ product.title }}</h2>
+                  <div class="product-price">
+                    {% if has_discount %}
+                      <span class="product-price-old">{{ compare_price | money }}</span>
+                      <span class="product-price-new">{{ current_price | money }}</span>
+                    {% else %}
+                      {{ product.price_min | money }}
+                    {% endif %}
+                  </div>
+                </div>
                 {% if product.variants.size > 0 %}
                   <ul class="product-sizes">
                     {% for variant in product.variants %}
@@ -42,9 +84,6 @@
                     {% endfor %}
                   </ul>
                 {% endif %}
-                <div class="product-price">
-                  {{ product.price | money }}
-                </div>
               </div>
             </a>
           </div>

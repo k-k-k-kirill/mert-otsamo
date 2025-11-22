@@ -1,4 +1,4 @@
-<div class="product-page">
+<div class="product-page container">
   <div class="product-page-wrapper">
     <div class="product-gallery">
       <div class="product-gallery-main">
@@ -41,7 +41,7 @@
         </div>
       {% endif %}
 
-      <form action="/cart/add" method="post" enctype="multipart/form-data" id="product-form">
+      <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" id="product-form">
         {% if product.variants.size > 1 %}
           <div class="product-variant-selector">
             <label for="product-variant-select" class="product-variant-label">Size</label>

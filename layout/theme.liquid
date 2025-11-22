@@ -98,6 +98,9 @@
     {% if template contains 'product' %}
       <link rel="stylesheet" href="{{ 'product.css' | asset_url }}">
     {% endif %}
+    {% if template contains 'cart' %}
+      <link rel="stylesheet" href="{{ 'cart.css' | asset_url }}">
+    {% endif %}
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
@@ -140,13 +143,13 @@
   
 
   <body class="{% if template == 'index' %}landing-page{% endif %}">
-    <main class="main-content">
-      {% section 'header' %}
+    {% section 'header' %}
 
+    <main class="main-content container">
       {{ content_for_layout }}
-
-      {% section 'footer' %}
     </main>
+
+    {% section 'footer' %}
 
     <!-- JavaScript -->
     <script async src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
