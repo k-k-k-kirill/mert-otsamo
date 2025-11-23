@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "size_guide_image": "shopify://shop_images/Size_guide.png",
     "sections": {
       "header": {
         "type": "header",
