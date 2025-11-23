@@ -246,6 +246,59 @@
           {% endif %}
         </button>
       </form>
+
+      {% comment %} Product Accordions {% endcomment %}
+      <div class="product-accordions">
+        {% comment %} Material & Care Accordion {% endcomment %}
+        {% if product.metafields.custom.material_care != blank %}
+          <div class="product-accordion">
+            <button type="button" class="product-accordion-header" aria-expanded="false">
+              <span class="product-accordion-title">Material & Care</span>
+              <span class="product-accordion-icon">
+                <img src="{{ 'Plus.svg' | asset_url }}" alt="Expand" class="product-accordion-icon-plus" width="16" height="16">
+                <img src="{{ 'Minus.svg' | asset_url }}" alt="Collapse" class="product-accordion-icon-minus" width="16" height="16">
+              </span>
+            </button>
+            <div class="product-accordion-content">
+              <div class="product-accordion-body">
+                <div class="product-accordion-text">
+                  {{ product.metafields.custom.material_care | escape | newline_to_br }}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        {% comment %} Size & Fit Accordion with Size Guide {% endcomment %}
+        {% if settings.size_guide_image or product.metafields.custom.size_fit != blank %}
+          <div class="product-accordion">
+            <button type="button" class="product-accordion-header" aria-expanded="false">
+              <span class="product-accordion-title">Size & Fit</span>
+              <span class="product-accordion-icon">
+                <img src="{{ 'Plus.svg' | asset_url }}" alt="Expand" class="product-accordion-icon-plus" width="16" height="16">
+                <img src="{{ 'Minus.svg' | asset_url }}" alt="Collapse" class="product-accordion-icon-minus" width="16" height="16">
+              </span>
+            </button>
+            <div class="product-accordion-content">
+              <div class="product-accordion-body">
+                {% if product.metafields.custom.size_fit != blank %}
+                  <div class="product-accordion-text">
+                    {{ product.metafields.custom.size_fit }}
+                  </div>
+                {% endif %}
+                {% if settings.size_guide_image %}
+                  <div class="product-size-guide-image">
+                    <img 
+                      src="{{ settings.size_guide_image | img_url: 'master' }}" 
+                      alt="Size guide"
+                      loading="lazy">
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>

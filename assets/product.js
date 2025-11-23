@@ -370,6 +370,46 @@
     if (selectedSize) {
       updateColorButtons(colorButtons, variantInput, selectedColorInput, productVariants, selectedSize);
     }
+
+    // Initialize accordions
+    initAccordions();
+  }
+
+  // Accordion functionality
+  function initAccordions() {
+    const accordionHeaders = document.querySelectorAll('.product-accordion-header');
+    
+    accordionHeaders.forEach(function(header) {
+      header.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        const content = this.nextElementSibling;
+        
+        // Close all other accordions (optional - remove if you want multiple open)
+        accordionHeaders.forEach(function(otherHeader) {
+          if (otherHeader !== header) {
+            otherHeader.setAttribute('aria-expanded', 'false');
+            const otherContent = otherHeader.nextElementSibling;
+            if (otherContent) {
+              otherContent.style.maxHeight = '0';
+            }
+          }
+        });
+        
+        // Toggle current accordion
+        if (isExpanded) {
+          this.setAttribute('aria-expanded', 'false');
+          if (content) {
+            content.style.maxHeight = '0';
+          }
+        } else {
+          this.setAttribute('aria-expanded', 'true');
+          if (content) {
+            // Set max-height to scrollHeight for smooth animation
+            content.style.maxHeight = content.scrollHeight + 'px';
+          }
+        }
+      });
+    });
   }
 
   // Initialize when DOM is ready
