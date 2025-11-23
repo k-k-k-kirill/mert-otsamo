@@ -1,7 +1,15 @@
 <header class="site-header">
   <div class="site-header-wrapper container">
     <div class="site-header-left">
-      <a href="/collections/all" class="site-nav-link">Shop</a>
+      <nav class="site-nav site-nav--desktop">
+        <a href="/collections/all" class="site-nav-link site-nav-link--desktop">Shop</a>
+        <a href="/collections/all" class="site-nav-link site-nav-link--desktop">Collection</a>
+        <a href="/pages/about" class="site-nav-link site-nav-link--desktop">About</a>
+      </nav>
+      <button type="button" class="site-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <img src="{{ 'burger.svg' | asset_url }}" alt="Menu" class="site-menu-toggle-icon site-menu-toggle-icon--burger" width="24" height="24">
+        <img src="{{ 'icon-close.svg' | asset_url }}" alt="Close" class="site-menu-toggle-icon site-menu-toggle-icon--close" width="24" height="24">
+      </button>
     </div>
     <a href="/" class="site-logo">
       <img
@@ -13,6 +21,37 @@
       <a href="/cart" class="site-cart-link">
         Cart ({{ cart.item_count }})
       </a>
+    </div>
+  </div>
+
+  {% comment %} Mobile Menu Overlay {% endcomment %}
+  <div class="site-mobile-menu">
+    <div class="site-mobile-menu-content container">
+      <div class="site-mobile-menu-header">
+        <a href="/" class="site-mobile-menu-logo">
+          <img
+            class="site-mobile-menu-logo-image"
+            src="{{ 'logo-text-1.svg' | asset_url }}"
+            alt="Mert Otsamo" />
+        </a>
+        <button type="button" class="site-mobile-menu-close" aria-label="Close menu">
+          <img src="{{ 'icon-close.svg' | asset_url }}" alt="Close" width="24" height="24">
+        </button>
+      </div>
+      <nav class="site-mobile-menu-nav">
+        <a href="/collections/all" class="site-mobile-menu-link">
+          <span>Shop</span>
+          <img src="{{ 'arrow.svg' | asset_url }}" alt="" class="site-mobile-menu-arrow" width="24" height="24">
+        </a>
+        <a href="/collections/all" class="site-mobile-menu-link">
+          <span>Collection</span>
+          <img src="{{ 'arrow.svg' | asset_url }}" alt="" class="site-mobile-menu-arrow" width="24" height="24">
+        </a>
+        <a href="/pages/about" class="site-mobile-menu-link">
+          <span>About</span>
+          <img src="{{ 'arrow.svg' | asset_url }}" alt="" class="site-mobile-menu-arrow" width="24" height="24">
+        </a>
+      </nav>
     </div>
   </div>
 </header>

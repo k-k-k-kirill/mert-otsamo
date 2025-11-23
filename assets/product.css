@@ -588,9 +588,9 @@
 }
 
 .product-accordion-icon {
-  width: 16px;
-  height: 16px;
-  font-size: 16px;
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
   font-weight: 300;
   line-height: 1;
   flex-shrink: 0;
@@ -607,8 +607,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   display: block;
   object-fit: contain;
   opacity: 1;

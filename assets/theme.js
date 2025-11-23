@@ -298,3 +298,82 @@ document.addEventListener("DOMContentLoaded", function () {
     { passive: true }
   );
 });
+
+// Mobile Menu Toggle
+(function() {
+  'use strict';
+  
+  function initMobileMenu() {
+    const menuToggle = document.querySelector(".site-menu-toggle");
+    const mobileMenu = document.querySelector(".site-mobile-menu");
+    const mobileMenuClose = document.querySelector(".site-mobile-menu-close");
+    const body = document.body;
+
+    if (!menuToggle || !mobileMenu) {
+      return;
+    }
+
+    function openMenu() {
+      menuToggle.setAttribute("aria-expanded", "true");
+      mobileMenu.classList.add("is-open");
+      document.documentElement.classList.add("menu-open");
+      body.style.overflow = "hidden";
+      body.style.position = "fixed";
+      body.style.width = "100%";
+      body.style.top = `-${window.scrollY}px`;
+    }
+
+    function closeMenu() {
+      const scrollY = body.style.top;
+      menuToggle.setAttribute("aria-expanded", "false");
+      mobileMenu.classList.remove("is-open");
+      document.documentElement.classList.remove("menu-open");
+      body.style.overflow = "";
+      body.style.position = "";
+      body.style.width = "";
+      body.style.top = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
+    }
+
+    menuToggle.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+      if (isExpanded) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    if (mobileMenuClose) {
+      mobileMenuClose.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeMenu();
+      });
+    }
+
+    // Close menu when clicking outside
+    mobileMenu.addEventListener("click", function (e) {
+      if (e.target === mobileMenu) {
+        closeMenu();
+      }
+    });
+
+    // Close menu on escape key
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && mobileMenu.classList.contains("is-open")) {
+        closeMenu();
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
+  } else {
+    initMobileMenu();
+  }
+})();
