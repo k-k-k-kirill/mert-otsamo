@@ -1,31 +1,52 @@
 <div class="product-page container">
   <div class="product-page-wrapper">
     <div class="product-gallery">
-      <div class="product-gallery-main">
-        {% if product.featured_image %}
-          <img
-            id="product-main-image"
-            src="{{ product.featured_image | img_url: '635x775' }}"
-            alt="{{ product.featured_image.alt | escape }}"
-            class="product-main-image">
+      {% comment %} Mobile Swiper Slider {% endcomment %}
+      <div class="product-gallery-swiper">
+        <div class="swiper product-image-swiper">
+          <div class="swiper-wrapper">
+            {% for image in product.images %}
+              <div class="swiper-slide">
+                <img
+                  src="{{ image | img_url: '635x775' }}"
+                  alt="{{ image.alt | escape }}"
+                  class="product-swiper-image"
+                  loading="lazy">
+              </div>
+            {% endfor %}
+          </div>
+          <div class="swiper-pagination product-swiper-pagination"></div>
+        </div>
+      </div>
+
+      {% comment %} Desktop Gallery (thumbnails + main image) {% endcomment %}
+      <div class="product-gallery-desktop">
+        <div class="product-gallery-main">
+          {% if product.featured_image %}
+            <img
+              id="product-main-image"
+              src="{{ product.featured_image | img_url: '635x775' }}"
+              alt="{{ product.featured_image.alt | escape }}"
+              class="product-main-image">
+          {% endif %}
+        </div>
+        {% if product.images.size > 1 %}
+          <div class="product-gallery-thumbnails">
+            {% for image in product.images %}
+              <button
+                type="button"
+                class="product-thumbnail{% if forloop.first %} product-thumbnail--active{% endif %}"
+                data-image-index="{{ forloop.index0 }}"
+                aria-label="View image {{ forloop.index }}">
+                <img
+                  src="{{ image | img_url: '95x116' }}"
+                  alt="{{ image.alt | escape }}"
+                  class="product-thumbnail-image">
+              </button>
+            {% endfor %}
+          </div>
         {% endif %}
       </div>
-      {% if product.images.size > 1 %}
-        <div class="product-gallery-thumbnails">
-          {% for image in product.images %}
-            <button
-              type="button"
-              class="product-thumbnail{% if forloop.first %} product-thumbnail--active{% endif %}"
-              data-image-index="{{ forloop.index0 }}"
-              aria-label="View image {{ forloop.index }}">
-              <img
-                src="{{ image | img_url: '95x116' }}"
-                alt="{{ image.alt | escape }}"
-                class="product-thumbnail-image">
-            </button>
-          {% endfor %}
-        </div>
-      {% endif %}
     </div>
 
     <div class="product-details">
@@ -225,6 +246,51 @@
           {% endif %}
         </button>
       </form>
+
+      {% comment %} Product Accordions {% endcomment %}
+      <div class="product-accordions">
+        {% comment %} Material & Care Accordion {% endcomment %}
+        {% if product.metafields.custom.material_care != blank %}
+          <div class="product-accordion">
+            <button type="button" class="product-accordion-header" aria-expanded="false">
+              <span class="product-accordion-title">Material & Care</span>
+              <span class="product-accordion-icon">+</span>
+            </button>
+            <div class="product-accordion-content">
+              <div class="product-accordion-body">
+                {{ product.metafields.custom.material_care }}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        {% comment %} Size & Fit Accordion with Size Guide {% endcomment %}
+        {% if settings.size_guide_image or product.metafields.custom.size_fit != blank %}
+          <div class="product-accordion">
+            <button type="button" class="product-accordion-header" aria-expanded="false">
+              <span class="product-accordion-title">Size & Fit</span>
+              <span class="product-accordion-icon">+</span>
+            </button>
+            <div class="product-accordion-content">
+              <div class="product-accordion-body">
+                {% if product.metafields.custom.size_fit != blank %}
+                  <div class="product-accordion-text">
+                    {{ product.metafields.custom.size_fit }}
+                  </div>
+                {% endif %}
+                {% if settings.size_guide_image %}
+                  <div class="product-size-guide-image">
+                    <img 
+                      src="{{ settings.size_guide_image | img_url: 'master' }}" 
+                      alt="Size guide"
+                      loading="lazy">
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>

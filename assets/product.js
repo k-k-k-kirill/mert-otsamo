@@ -221,6 +221,32 @@
     const productImages = productData.images || [];
     const productVariants = productData.variants || [];
 
+    // Initialize Swiper for mobile product gallery
+    const productSwiper = document.querySelector('.product-image-swiper');
+    if (productSwiper) {
+      // Wait for Swiper to load if not available yet
+      function initSwiper() {
+        if (typeof Swiper !== 'undefined' && window.innerWidth < 1024) {
+          new Swiper('.product-image-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            pagination: {
+              el: '.product-swiper-pagination',
+              clickable: true,
+              bulletClass: 'swiper-pagination-bullet',
+              bulletActiveClass: 'swiper-pagination-bullet-active'
+            },
+            loop: false,
+            allowTouchMove: true
+          });
+        } else if (typeof Swiper === 'undefined') {
+          // Retry after a short delay if Swiper not loaded yet
+          setTimeout(initSwiper, 100);
+        }
+      }
+      initSwiper();
+    }
+
     // Thumbnail gallery functionality
     const thumbnails = document.querySelectorAll('.product-thumbnail');
     const mainImage = document.getElementById('product-main-image');
@@ -344,6 +370,45 @@
     if (selectedSize) {
       updateColorButtons(colorButtons, variantInput, selectedColorInput, productVariants, selectedSize);
     }
+
+    // Initialize accordions
+    initAccordions();
+  }
+
+  // Accordion functionality
+  function initAccordions() {
+    const accordionHeaders = document.querySelectorAll('.product-accordion-header');
+    
+    accordionHeaders.forEach(function(header) {
+      header.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        const content = this.nextElementSibling;
+        
+        // Close all other accordions (optional - remove if you want multiple open)
+        accordionHeaders.forEach(function(otherHeader) {
+          if (otherHeader !== header) {
+            otherHeader.setAttribute('aria-expanded', 'false');
+            const otherContent = otherHeader.nextElementSibling;
+            if (otherContent) {
+              otherContent.style.maxHeight = '0';
+            }
+          }
+        });
+        
+        // Toggle current accordion
+        if (isExpanded) {
+          this.setAttribute('aria-expanded', 'false');
+          if (content) {
+            content.style.maxHeight = '0';
+          }
+        } else {
+          this.setAttribute('aria-expanded', 'true');
+          if (content) {
+            content.style.maxHeight = content.scrollHeight + 'px';
+          }
+        }
+      });
+    });
   }
 
   // Initialize when DOM is ready
