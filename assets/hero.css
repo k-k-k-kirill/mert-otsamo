@@ -55,7 +55,7 @@
   letter-spacing: -2%;
   text-transform: uppercase;
   margin: 0;
-  color: var(--primary-color);
+  color: var(--hero-text-color);
 }
 
 .hero-cta {
@@ -65,7 +65,7 @@
   font-size: 18px;
   line-height: 130%;
   letter-spacing: 1%;
-  color: var(--primary-color);
+  color: var(--hero-text-color);
   text-decoration: underline;
   margin-top: 32px;
   transition: opacity 0.3s ease;
