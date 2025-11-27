@@ -349,6 +349,7 @@
     font-size: 14px;
     line-height: 130%;
     letter-spacing: 0%;
+    max-width: 170px;
   }
 
   .cart-item-title a {
@@ -737,35 +738,49 @@
 }
 
 .cart-empty {
-  text-align: center;
-  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 20px;
   color: var(--primary-color);
 }
 
-.cart-empty p {
+.cart-empty-message {
   font-family: Manrope;
-  font-size: 16px;
+  font-size: 15px;
   font-style: normal;
   font-weight: 400;
-  line-height: 140%;
+  line-height: 130%;
+  letter-spacing: 0%;
   margin: 0 0 24px 0;
+  text-align: center;
 }
 
-.cart-continue-shopping {
+.cart-empty-button {
   font-family: Manrope;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 140%;
-  color: var(--primary-color);
-  text-decoration: none;
+  line-height: 130%;
+  letter-spacing: 0%;
+  color: var(--background-color);
+  background-color: var(--primary-color);
   border: 1px solid var(--primary-color);
-  padding: 16px 24px;
+  text-decoration: none;
+  padding: 12px 24px;
   display: inline-block;
   transition: opacity 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  width: 314px;
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 }
 
-.cart-continue-shopping:hover {
-  opacity: 0.7;
+.cart-empty-button:hover {
+  opacity: 0.8;
 }
 

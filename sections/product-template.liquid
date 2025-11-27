@@ -51,7 +51,7 @@
 
     <div class="product-details">
       <div class="product-details-title-price">
-        <h1 class="product-details-title">{{ product.title }}</h1>
+        <h1 class="product-details-title">{{ product.title }}{% if product.metafields.custom.pre_order_mode %} - Pre-order{% endif %}</h1>
         <div class="product-details-price">
           {% assign has_discount = false %}
           {% assign compare_price = product.compare_at_price_min %}
@@ -153,7 +153,8 @@
                     <button
                       type="button"
                       class="product-color-button{% if color_name == first_available_variant.option2 %} product-color-button--active{% endif %}"
-                      data-color="{{ color_name | escape }}">
+                      data-color="{{ color_name | escape }}"
+                      title="{{ color_name | escape }}">
                       <span class="product-color-swatch" data-color-name="{{ color_name | escape }}" data-color-value="{{ color_value | escape }}"></span>
                     </button>
                   {% endfor %}
@@ -234,17 +235,27 @@
           <input type="hidden" name="id" value="{{ product.variants.first.id }}">
         {% endif %}
 
-        <button
-          type="submit"
-          name="add"
-          class="product-add-to-cart"
-          {% unless product.available %}disabled{% endunless %}>
-          {% if product.available %}
-            Add to Cart
-          {% else %}
-            Sold Out
+        <div class="product-add-to-cart-wrapper">
+          <button
+            type="submit"
+            name="add"
+            class="product-add-to-cart"
+            {% unless product.available %}disabled{% endunless %}>
+            {% if product.available %}
+              {% if product.metafields.custom.pre_order_mode %}
+                Pre-order
+              {% else %}
+                Add to Cart
+              {% endif %}
+            {% else %}
+              Sold Out
+            {% endif %}
+          </button>
+
+          {% if product.metafields.custom.pre_order_mode and product.available %}
+            <p class="product-preorder-notice">Please note: this is a pre-order item. It will be shipped once available.</p>
           {% endif %}
-        </button>
+        </div>
       </form>
 
       {% comment %} Product Accordions {% endcomment %}

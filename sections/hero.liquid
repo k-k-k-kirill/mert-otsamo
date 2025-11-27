@@ -1,0 +1,73 @@
+{{ 'hero.css' | asset_url | stylesheet_tag }}
+
+<section class="hero">
+  <div class="hero-images">
+    <div class="hero-image hero-image--left">
+      {% if section.settings.left_image %}
+        <img 
+          src="{{ section.settings.left_image | img_url: '1200x' }}" 
+          alt="{{ section.settings.left_image.alt | escape }}"
+          class="hero-img">
+      {% else %}
+        <div class="hero-image-placeholder"></div>
+      {% endif %}
+    </div>
+    <div class="hero-image hero-image--right">
+      {% if section.settings.right_image %}
+        <img 
+          src="{{ section.settings.right_image | img_url: '1200x' }}" 
+          alt="{{ section.settings.right_image.alt | escape }}"
+          class="hero-img">
+      {% else %}
+        <div class="hero-image-placeholder"></div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="hero-content">
+    <h1 class="hero-title">{{ section.settings.hero_title }}</h1>
+    {% if section.settings.cta_title != blank and section.settings.cta_url != blank %}
+      <a href="{{ section.settings.cta_url }}" class="hero-cta">{{ section.settings.cta_title }}</a>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Left Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Right Image"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "Read between the lines"
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "CTA Title",
+      "default": "Discover now"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}
+

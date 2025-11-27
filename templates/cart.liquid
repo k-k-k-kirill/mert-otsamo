@@ -1,7 +1,6 @@
 <div class="cart-page container">
-  <h1 class="cart-page-title">Shopping Cart</h1>
-
   {% if cart.item_count > 0 %}
+    <h1 class="cart-page-title">Shopping Cart</h1>
     <form action="/cart" method="post" novalidate class="cart-form">
       <div class="cart-table">
         <div class="cart-table-header">
@@ -132,8 +131,8 @@
     </form>
   {% else %}
     <div class="cart-empty">
-      <p>Your cart is empty.</p>
-      <a href="/collections/all" class="cart-continue-shopping">Continue Shopping</a>
+      <p class="cart-empty-message">Your Shopping cart is empty</p>
+      <a href="/collections/all" class="cart-empty-button">Start shopping</a>
     </div>
   {% endif %}
 </div>

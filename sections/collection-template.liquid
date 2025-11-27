@@ -65,7 +65,7 @@
               {% endif %}
               <div class="product-info">
                 <div class="product-title-price">
-                  <h2 class="product-title">{{ product.title }}</h2>
+                  <h2 class="product-title">{{ product.title }}{% if product.metafields.custom.pre_order_mode %} - Pre-order{% endif %}</h2>
                   <div class="product-price">
                     {% if has_discount %}
                       <span class="product-price-old">{{ compare_price | money }}</span>
