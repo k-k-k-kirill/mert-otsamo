@@ -154,5 +154,8 @@
     <!-- JavaScript -->
     <script async src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script async src="{{ 'theme.js' | asset_url }}"></script>
+    {% if template contains 'cart' %}
+      <script async src="{{ 'cart.js' | asset_url }}"></script>
+    {% endif %}
   </body>
 </html>

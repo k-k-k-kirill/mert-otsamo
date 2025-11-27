@@ -3,67 +3,130 @@
 
   {% if cart.item_count > 0 %}
     <form action="/cart" method="post" novalidate class="cart-form">
-      <div class="cart-items">
-        {% for item in cart.items %}
-          <div class="cart-item">
-            <div class="cart-item-image">
-              {% if item.image %}
-                <img
-                  src="{{ item.image | img_url: '200x200' }}"
-                  alt="{{ item.title | escape }}"
-                  class="cart-item-img">
-              {% endif %}
-            </div>
-            <div class="cart-item-details">
-              <h2 class="cart-item-title">
-                <a href="{{ item.url }}">{{ item.product.title }}</a>
-              </h2>
-              {% unless item.product.has_only_default_variant %}
-                <div class="cart-item-variant">
-                  {% if item.variant.option2 %}
-                    <span class="cart-item-color">Color: {{ item.variant.option2 }}</span>
-                    {% if item.variant.option1 %}
-                      <span class="cart-item-separator"> / </span>
-                      <span class="cart-item-size">Size: {{ item.variant.option1 }}</span>
+      <div class="cart-table">
+        <div class="cart-table-header">
+          <div class="cart-table-header-product">Product</div>
+          <div class="cart-table-header-price">Price</div>
+          <div class="cart-table-header-quantity">Quantity</div>
+          <div class="cart-table-header-subtotal">Subtotal</div>
+        </div>
+        <div class="cart-table-divider"></div>
+        <div class="cart-items">
+          {% for item in cart.items %}
+            <div class="cart-item">
+              <div class="cart-item-product">
+                <div class="cart-item-content">
+                  <div class="cart-item-image">
+                    {% if item.image %}
+                      <a href="{{ item.url }}">
+                        <img
+                          src="{{ item.image | img_url: '173x192' }}"
+                          alt="{{ item.title | escape }}"
+                          class="cart-item-img">
+                      </a>
                     {% endif %}
-                  {% elsif item.variant.option1 %}
-                    <span class="cart-item-size">Size: {{ item.variant.option1 }}</span>
-                  {% else %}
-                    {{ item.variant.title }}
-                  {% endif %}
+                  </div>
+                  <div class="cart-item-details">
+                    <div class="cart-item-title-row">
+                      <h2 class="cart-item-title">
+                        <a href="{{ item.url }}">{{ item.product.title }}</a>
+                      </h2>
+                      {% comment %} Mobile total on same row as title {% endcomment %}
+                      <div class="cart-item-total cart-item-total-mobile" data-line-total="{{ forloop.index }}">
+                        {{ item.line_price | money }}
+                      </div>
+                    </div>
+                    {% unless item.product.has_only_default_variant %}
+                      <div class="cart-item-variant">
+                        {% if item.variant.option2 %}
+                          {% if item.variant.option1 %}
+                            <span class="cart-item-size">Size: {{ item.variant.option1 }}</span>
+                            <span class="cart-item-color">Color: {{ item.variant.option2 }}</span>
+                          {% else %}
+                            <span class="cart-item-color">Color: {{ item.variant.option2 }}</span>
+                          {% endif %}
+                        {% elsif item.variant.option1 %}
+                          <span class="cart-item-size">Size: {{ item.variant.option1 }}</span>
+                        {% else %}
+                          <span>{{ item.variant.title }}</span>
+                        {% endif %}
+                      </div>
+                    {% endunless %}
+                    {% comment %} Mobile quantity and remove block inside details {% endcomment %}
+                    <div class="cart-item-quantity-cell cart-item-quantity-cell-mobile">
+                      <div class="cart-item-quantity">
+                        <button type="button" class="cart-quantity-button cart-quantity-button--minus" data-key="{{ item.key }}" aria-label="Decrease quantity">−</button>
+                        <span class="cart-item-quantity-display" data-key="{{ item.key }}">{{ item.quantity }}</span>
+                        <input
+                          type="number"
+                          name="updates[]"
+                          value="{{ item.quantity }}"
+                          min="0"
+                          {% if item.variant.inventory_quantity != null %}max="{{ item.variant.inventory_quantity }}"{% endif %}
+                          class="cart-item-quantity-input"
+                          id="updates_mobile_{{ item.key }}"
+                          data-line="{{ forloop.index }}"
+                          data-key="{{ item.key }}"
+                          {% if item.variant.inventory_quantity != null %}data-inventory="{{ item.variant.inventory_quantity }}"{% else %}data-inventory=""{% endif %}
+                          data-variant-id="{{ item.variant.id }}"
+                          style="display: none;">
+                        <button type="button" class="cart-quantity-button cart-quantity-button--plus{% if item.variant.inventory_quantity != null and item.quantity >= item.variant.inventory_quantity %} cart-quantity-button--disabled{% endif %}" data-key="{{ item.key }}" aria-label="Increase quantity"{% if item.variant.inventory_quantity != null and item.quantity >= item.variant.inventory_quantity %} disabled{% endif %}>+</button>
+                      </div>
+                      <div class="cart-item-remove cart-item-remove-mobile">
+                        <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart-item-remove-link">Remove</a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              {% endunless %}
-              <div class="cart-item-price">{{ item.price | money }}</div>
+              </div>
+              <div class="cart-item-price-cell">
+                <div class="cart-item-price">{{ item.price | money }}</div>
+              </div>
+              <div class="cart-item-quantity-cell cart-item-quantity-cell-desktop">
+                <div class="cart-item-quantity">
+                  <button type="button" class="cart-quantity-button cart-quantity-button--minus" data-key="{{ item.key }}" aria-label="Decrease quantity">−</button>
+                  <span class="cart-item-quantity-display" data-key="{{ item.key }}">{{ item.quantity }}</span>
+                  <input
+                    type="number"
+                    name="updates[]"
+                    value="{{ item.quantity }}"
+                    min="0"
+                    {% if item.variant.inventory_quantity != null %}max="{{ item.variant.inventory_quantity }}"{% endif %}
+                    class="cart-item-quantity-input cart-item-quantity-input-desktop"
+                    id="updates_{{ item.key }}"
+                    data-line="{{ forloop.index }}"
+                    data-key="{{ item.key }}"
+                    {% if item.variant.inventory_quantity != null %}data-inventory="{{ item.variant.inventory_quantity }}"{% else %}data-inventory=""{% endif %}
+                    data-variant-id="{{ item.variant.id }}"
+                    style="display: none;"
+                    disabled>
+                  <button type="button" class="cart-quantity-button cart-quantity-button--plus{% if item.variant.inventory_quantity != null and item.quantity >= item.variant.inventory_quantity %} cart-quantity-button--disabled{% endif %}" data-key="{{ item.key }}" aria-label="Increase quantity"{% if item.variant.inventory_quantity != null and item.quantity >= item.variant.inventory_quantity %} disabled{% endif %}>+</button>
+                </div>
+              </div>
+              <div class="cart-item-total-cell">
+                <div class="cart-item-total-wrapper">
+                  <div class="cart-item-total cart-item-total-desktop" data-line-total="{{ forloop.index }}">
+                    {{ item.line_price | money }}
+                  </div>
+                  <div class="cart-item-remove cart-item-remove-desktop">
+                    <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart-item-remove-link">Remove</a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="cart-item-quantity">
-              <input
-                type="number"
-                name="updates[]"
-                value="{{ item.quantity }}"
-                min="0"
-                class="cart-item-quantity-input"
-                id="updates_{{ item.key }}">
-            </div>
-            <div class="cart-item-total">
-              {{ item.line_price | money }}
-            </div>
-            <div class="cart-item-remove">
-              <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart-item-remove-link">Remove</a>
-            </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
+        <div class="cart-table-divider cart-table-divider-bottom"></div>
       </div>
 
       <div class="cart-footer">
-        <div class="cart-totals">
+        <div class="cart-actions">
           <div class="cart-subtotal">
             <span class="cart-subtotal-label">Subtotal</span>
             <span class="cart-subtotal-amount">{{ cart.total_price | money }}</span>
           </div>
-        </div>
-        <div class="cart-actions">
-          <button type="submit" name="update" class="cart-update-button">Update Cart</button>
-          <button type="submit" name="checkout" class="cart-checkout-button">Checkout</button>
+          <p class="cart-shipping-note">Shipping & taxes calculated at checkout</p>
+          <a href="/checkout" class="cart-checkout-button">Checkout</a>
         </div>
       </div>
     </form>

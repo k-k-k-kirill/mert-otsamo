@@ -9,6 +9,9 @@
   --sold-out-border: #949393;
   --discount-old-price: #B7B6B6;
   --discount-new-price: #C50000;
+  --variant-label-color: #666666;
+  --divider-color: #D2D2D2;
+  --remove-link-color: #808080;
 }
 
 .shopify-section {
