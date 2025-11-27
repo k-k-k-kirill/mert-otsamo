@@ -77,117 +77,33 @@
       },
       "product-highlights": {
         "type": "product-highlights",
-        "settings": {
-          "scroll_speed": 30
-        }
-      },
-      "collection-editorial": {
-        "type": "collection-editorial",
         "blocks": {
-          "image_Uk4MYV": {
-            "type": "image",
+          "product_BV6G3J": {
+            "type": "product",
             "settings": {
-              "image": "shopify://shop_images/SUORISTETTU_8_8bit-sc-story-1080-1920_021a7bb0-7d8e-4847-b87d-7395275dc133.jpg",
-              "caption": "",
-              "size": "medium"
+              "product": "the-aurelia-satin-slip-dress"
             }
           },
-          "image_p9wUwz": {
-            "type": "image",
+          "product_TfUAmm": {
+            "type": "product",
             "settings": {
-              "image": "shopify://shop_images/2_8bit-sc-story-1080-1920.jpg",
-              "caption": "",
-              "size": "medium"
+              "product": "the-classic-essential-tee"
             }
           },
-          "image_hGeYUG": {
-            "type": "image",
+          "product_kMVm6L": {
+            "type": "product",
             "settings": {
-              "image": "shopify://shop_images/11_8bit-sc-story-1080-1920.jpg",
-              "caption": "",
-              "size": "medium"
-            }
-          },
-          "image_k8Pf3C": {
-            "type": "image",
-            "settings": {
-              "image": "shopify://shop_images/14_8bit-sc-story-1080-1920.jpg",
-              "caption": "",
-              "size": "medium"
-            }
-          },
-          "image_9QTGBz": {
-            "type": "image",
-            "settings": {
-              "image": "shopify://shop_images/2_8bit-sc-story-1080-1920.jpg",
-              "caption": "",
-              "size": "medium"
-            }
-          },
-          "image_G8gFdG": {
-            "type": "image",
-            "settings": {
-              "image": "shopify://shop_images/5_8bit-sc-story-1080-1920.jpg",
-              "caption": "",
-              "size": "medium"
-            }
-          },
-          "image_bnrWMG": {
-            "type": "image",
-            "settings": {
-              "image": "shopify://shop_images/CROP_SUORISTETTU_8_8bit-sc-story-1080-1920.jpg",
-              "caption": "",
-              "size": "medium"
-            }
-          },
-          "image_neDE8j": {
-            "type": "image",
-            "settings": {
-              "image": "shopify://shop_images/12_8bit-sc-story-1080-1920.jpg",
-              "caption": "",
-              "size": "medium"
-            }
-          },
-          "image_TjDKrP": {
-            "type": "image",
-            "settings": {
-              "image": "shopify://shop_images/9_8bit-sc-story-1080-1920.jpg",
-              "caption": "",
-              "size": "medium"
-            }
-          },
-          "image_ex9VYY": {
-            "type": "image",
-            "settings": {
-              "image": "shopify://shop_images/5_8bit-sc-story-1080-1920.jpg",
-              "caption": "",
-              "size": "medium"
-            }
-          },
-          "image_Bj6kyV": {
-            "type": "image",
-            "settings": {
-              "image": "shopify://shop_images/14_8bit-sc-story-1080-1920.jpg",
-              "caption": "",
-              "size": "medium"
+              "product": "the-marlowe-wool-blend-coat"
             }
           }
         },
         "block_order": [
-          "image_Uk4MYV",
-          "image_p9wUwz",
-          "image_hGeYUG",
-          "image_k8Pf3C",
-          "image_9QTGBz",
-          "image_G8gFdG",
-          "image_bnrWMG",
-          "image_neDE8j",
-          "image_TjDKrP",
-          "image_ex9VYY",
-          "image_Bj6kyV"
+          "product_BV6G3J",
+          "product_TfUAmm",
+          "product_kMVm6L"
         ],
         "settings": {
-          "title": "READ between the lines"
+          "scroll_speed": 30
         }
       }
     },

@@ -1,11 +1,13 @@
 /* Collection Page Styles */
 .collection-page {
   width: 100%;
-  padding: 0 0 40px 0;
+  padding-top: 0;
+  padding-bottom: 40px;
   box-sizing: border-box;
 
   @media (min-width: 768px) {
-    padding: 40px 0;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 }
 
