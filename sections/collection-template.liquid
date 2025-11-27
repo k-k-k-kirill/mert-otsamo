@@ -1,5 +1,5 @@
 {% paginate collection.products by 6 %}
-  <div class="collection-page">
+  <div class="collection-page container">
     {% assign collection_title = collection.metafields.custom.collection_alias | default: collection.title %}
     {% if collection_title != blank %}
       <h1 class="collection-title">{{ collection_title }}</h1>

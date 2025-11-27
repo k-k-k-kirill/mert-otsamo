@@ -64,6 +64,16 @@
       "footer": {
         "type": "footer",
         "settings": {}
+      },
+      "hero": {
+        "type": "hero",
+        "settings": {
+          "left_image": "shopify://shop_images/SUORISTETTU_8_8bit-sc-story-1080-1920_021a7bb0-7d8e-4847-b87d-7395275dc133.jpg",
+          "right_image": "shopify://shop_images/14_8bit-sc-story-1080-1920.jpg",
+          "hero_title": "Read between the lines",
+          "cta_title": "Discover now",
+          "cta_url": "shopify://collections/all"
+        }
       }
     },
     "content_for_index": [],

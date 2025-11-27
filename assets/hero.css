@@ -1,10 +1,9 @@
 /* Hero Section Styles */
 .hero {
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: calc(100vh - 100px);
   overflow: hidden;
-  margin-left: calc(-50vw + 50%);
 }
 
 .hero-images {
