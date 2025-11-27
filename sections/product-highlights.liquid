@@ -1,0 +1,89 @@
+{{ 'collection.css' | asset_url | stylesheet_tag }}
+{{ 'product-highlights.css' | asset_url | stylesheet_tag }}
+
+<section class="product-highlights">
+  <div class="product-highlights-track" data-speed="{{ section.settings.scroll_speed }}">
+    {% comment %} Render items 4 times for seamless infinite loop {% endcomment %}
+    {% for i in (1..4) %}
+      {% for block in section.blocks %}
+        {% if block.type == 'product' and block.settings.product != blank %}
+          <div class="product-highlight-item{% if i == 1 %} product-highlight-item--original{% endif %}"{% if i > 1 %} aria-hidden="true"{% endif %}>
+            {% render 'product-card', product: block.settings.product %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  </div>
+</section>
+
+<script>
+  (function() {
+    const track = document.querySelector('.product-highlights-track');
+    if (!track) return;
+
+    const speed = parseInt(track.dataset.speed) || 30;
+    const gap = 25;
+    
+    const originalItems = track.querySelectorAll('.product-highlight-item--original');
+    const itemCount = originalItems.length;
+    
+    if (itemCount === 0) return;
+
+    function initAnimation() {
+      // Calculate width of one set of items
+      let setWidth = 0;
+      originalItems.forEach(item => {
+        setWidth += item.offsetWidth + gap;
+      });
+      
+      track.style.setProperty('--scroll-distance', `-${setWidth}px`);
+      track.style.setProperty('--scroll-speed', `${speed}s`);
+      track.classList.add('product-highlights-track--animated');
+    }
+
+    // Wait for images to load
+    if (document.readyState === 'complete') {
+      initAnimation();
+    } else {
+      window.addEventListener('load', initAnimation);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product Highlights",
+  "settings": [
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "Scroll Speed (seconds)",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 30,
+      "unit": "s"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Highlights",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
+
