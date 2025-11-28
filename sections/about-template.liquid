@@ -1,0 +1,19 @@
+{{ 'about.css' | asset_url | stylesheet_tag }}
+
+<div class="about-page container">
+  <h1 class="about-title">{{ page.title }}</h1>
+  
+  {% if page.content != blank %}
+    <div class="about-content">
+      {{ page.content }}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "About Template",
+  "settings": []
+}
+{% endschema %}
+
