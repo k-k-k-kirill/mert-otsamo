@@ -2,7 +2,7 @@
 .hero {
   position: relative;
   width: 100%;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 86px);
   overflow: hidden;
   margin-bottom: 70px;
 }
@@ -76,9 +76,9 @@
   opacity: 0.7;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 820px) {
   .hero {
-    height: calc(100vh - 80px);
+    height: calc(100vh - 84px);
   }
 
   .hero-images {

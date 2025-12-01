@@ -311,11 +311,13 @@ h1 {
   width: 100%;
   padding-top: 30px;
   position: relative;
+  padding-bottom: 30px;
 
   @media (min-width: 1024px) {
     min-height: 86px;
     display: flex;
     align-items: flex-start;
+    padding-bottom: 0;
   }
 }
 
