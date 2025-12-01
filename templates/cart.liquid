@@ -28,7 +28,7 @@
                   <div class="cart-item-details">
                     <div class="cart-item-title-row">
                       <h2 class="cart-item-title">
-                        <a href="{{ item.url }}">{{ item.product.title }}{% if item.product.metafields.custom.pre_order_mode %} - Pre-order{% endif %}</a>
+                        <a href="{{ item.url }}">{{ item.product.title }}{% if item.product.metafields.custom.pre_order_mode and item.product.available %} - Pre-order{% endif %}</a>
                       </h2>
                       {% comment %} Mobile total on same row as title {% endcomment %}
                       <div class="cart-item-total cart-item-total-mobile" data-line-total="{{ forloop.index }}">

@@ -51,7 +51,7 @@
 
     <div class="product-details">
       <div class="product-details-title-price">
-        <h1 class="product-details-title">{{ product.title }}{% if product.metafields.custom.pre_order_mode %} - Pre-order{% endif %}</h1>
+        <h1 class="product-details-title">{{ product.title }}{% if product.metafields.custom.pre_order_mode and product.available %} - Pre-order{% endif %}</h1>
         <div class="product-details-price">
           {% assign has_discount = false %}
           {% assign compare_price = product.compare_at_price_min %}
@@ -85,6 +85,7 @@
         </div>
       {% endif %}
 
+      {% unless product.metafields.custom.coming_soon_mode %}
       <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" id="product-form">
         {% if product.variants.size > 1 %}
           {% assign first_available_variant = null %}
@@ -257,6 +258,7 @@
           {% endif %}
         </div>
       </form>
+      {% endunless %}
 
       {% comment %} Product Accordions {% endcomment %}
       <div class="product-accordions">

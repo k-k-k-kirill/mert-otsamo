@@ -13,7 +13,7 @@
 
 .collection-title {
   font-family: Manrope;
-  font-weight: 600;
+  font-weight: 400;
   font-style: normal;
   font-size: 36px;
   line-height: 120%;
@@ -26,6 +26,9 @@
   @media (min-width: 768px) {
     font-size: 80px;
     letter-spacing: -2%;
+  }
+
+  @media (min-width: 821px) {
     margin-top: 70px;
   }
 }
@@ -93,8 +96,6 @@
   top: 10px;
   left: 10px;
   z-index: 10;
-  width: 82px;
-  height: 27px;
   background-color: var(--sold-out-bg);
   border: 0.5px solid var(--sold-out-border);
   padding: 5px 10px;
@@ -102,6 +103,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
   font-family: Manrope;
   font-size: 12px;
   font-style: normal;
@@ -204,6 +206,10 @@
 
 .product-link:hover .product-title {
   opacity: 0;
+}
+
+.product-link--coming-soon:hover .product-title {
+  opacity: 1;
 }
 
 .product-link:hover .product-sizes {

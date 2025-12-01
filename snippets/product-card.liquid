@@ -29,10 +29,12 @@
 {% endfor %}
 
 <div class="product-card">
-  <a href="{{ product.url }}" class="product-link{% if product.images.size > 1 %} product-link--has-multiple-images{% endif %}">
+  <a href="{{ product.url }}" class="product-link{% if product.images.size > 1 %} product-link--has-multiple-images{% endif %}{% if product.metafields.custom.coming_soon_mode %} product-link--coming-soon{% endif %}">
     {% if product.featured_image %}
       <div class="product-image-wrapper">
-        {% if all_variants_unavailable %}
+        {% if product.metafields.custom.coming_soon_mode %}
+          <div class="product-sold-out-badge">COMING SOON</div>
+        {% elsif all_variants_unavailable %}
           <div class="product-sold-out-badge">SOLD OUT</div>
         {% endif %}
         <img
@@ -55,7 +57,7 @@
     {% endif %}
     <div class="product-info">
       <div class="product-title-price">
-        <h2 class="product-title">{{ product.title }}{% if product.metafields.custom.pre_order_mode %} - Pre-order{% endif %}</h2>
+        <h2 class="product-title">{{ product.title }}{% if product.metafields.custom.pre_order_mode and all_variants_unavailable == false %} - Pre-order{% endif %}</h2>
         <div class="product-price">
           {% if has_discount %}
             <span class="product-price-old">{{ compare_price | money }}</span>
@@ -65,7 +67,7 @@
           {% endif %}
         </div>
       </div>
-      {% if product.variants.size > 0 %}
+      {% if product.variants.size > 0 and product.metafields.custom.coming_soon_mode != true %}
         {% comment %} Get unique sizes by checking each size individually {% endcomment %}
         {% assign unique_sizes_list = '' %}
         {% for variant in product.variants %}
