@@ -5,20 +5,19 @@
     <h1 class="editorial-title">{{ section.settings.title }}</h1>
   {% endif %}
 
+  {% if section.settings.text_content != blank %}
+    <div class="editorial-intro">
+      <div class="editorial-text">{{ section.settings.text_content }}</div>
+    </div>
+  {% endif %}
+
   <div class="editorial-grid">
     {% comment %} 
-      Grid pattern repeats every 11 images:
-      Position 1: regular (col 1)
-      Position 2: regular (col 3) - text is between pos 1 and 2 in first cycle only
-      Position 3: regular (col 4)
-      Position 4: big square (col 1-2)
-      Position 5: vertical (col 4)
-      Position 6: regular (col 1)
-      Position 7: regular (col 2)
-      Position 8: regular (col 3)
-      Position 9: regular (col 4)
-      Position 10: vertical (col 1)
-      Position 11: big square (col 3-4)
+      Grid pattern repeats every 11 images (4 rows per cycle):
+      Row 1: Position 1, text, Position 2, Position 3
+      Row 2: Position 4 (big square), Position 5 (vertical)
+      Row 3: Position 6, 7, 8, 9
+      Row 4: Position 10 (vertical), Position 11 (big square)
     {% endcomment %}
 
     {% assign image_index = 0 %}
@@ -32,10 +31,24 @@
         {% endif %}
         
         {% assign cycle_number = image_index | minus: 1 | divided_by: 11 %}
+        {% assign row_offset = cycle_number | times: 4 %}
+        
+        {% comment %} Calculate actual row based on position {% endcomment %}
+        {% case position_in_cycle %}
+          {% when 1 or 2 or 3 %}
+            {% assign base_row = 1 %}
+          {% when 4 or 5 %}
+            {% assign base_row = 2 %}
+          {% when 6 or 7 or 8 or 9 %}
+            {% assign base_row = 3 %}
+          {% when 10 or 11 %}
+            {% assign base_row = 4 %}
+        {% endcase %}
+        {% assign actual_row = base_row | plus: row_offset %}
         
         {% comment %} Insert text block after first image of first cycle {% endcomment %}
         {% if image_index == 1 and section.settings.text_content != blank %}
-          <div class="editorial-item editorial-item--1">
+          <div class="editorial-item editorial-item--1" style="--row: {{ actual_row }}">
             {% if block.settings.image %}
               <div class="editorial-image">
                 <img src="{{ block.settings.image | img_url: '800x' }}" alt="{{ block.settings.caption | escape }}" loading="lazy">
@@ -48,7 +61,7 @@
             {% endif %}
           </div>
           
-          <div class="editorial-item editorial-item--text">
+          <div class="editorial-item editorial-item--text" style="--row: {{ actual_row }}">
             <div class="editorial-text">{{ section.settings.text_content }}</div>
           </div>
         {% else %}
@@ -78,7 +91,7 @@
               {% assign item_class = 'editorial-item--11' %}
           {% endcase %}
           
-          <div class="editorial-item {{ item_class }}">
+          <div class="editorial-item {{ item_class }}" style="--row: {{ actual_row }}">
             {% if block.settings.image %}
               <div class="editorial-image">
                 <img src="{{ block.settings.image | img_url: '800x' }}" alt="{{ block.settings.caption | escape }}" loading="lazy">

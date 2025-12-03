@@ -14,16 +14,32 @@
   line-height: 130%;
   letter-spacing: -2%;
   text-transform: uppercase;
-  margin: 0 0 40px 0;
+  margin: 0 0 15px 0;
   color: var(--primary-color);
+}
+
+/* Intro text - shown on tablet/mobile, hidden on desktop */
+.editorial-intro {
+  margin-bottom: 30px;
+}
+
+.editorial-intro .editorial-text {
+  max-width: 688px;
 }
 
 /* Creative Grid Layout */
 .editorial-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 20px;
-  row-gap: 25px;
+  grid-template-columns: 1fr;
+  row-gap: 20px;
+}
+
+/* Tablet - 2 columns */
+@media (min-width: 768px) {
+  .editorial-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 15px;
+  }
 }
 
 .editorial-item {
@@ -64,9 +80,7 @@
 
 /* Text block styles */
 .editorial-item--text {
-  display: flex;
-  align-items: flex-start;
-  padding: 0;
+  display: none;
 }
 
 .editorial-text {
@@ -87,17 +101,61 @@
   margin-bottom: 0;
 }
 
-/* Desktop Grid Positioning */
-@media (min-width: 768px) {
+/* Mobile/Tablet - simple 2 column grid */
+.editorial-item .editorial-image {
+  aspect-ratio: 3 / 4;
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .editorial-page {
+    margin-top: 40px;
+    margin-bottom: 60px;
+  }
+
+  .editorial-title {
+    font-size: 24px;
+  }
+
+  .editorial-intro {
+    margin-bottom: 25px;
+  }
+
+  .editorial-intro .editorial-text {
+    font-size: 14px;
+  }
+
+  .editorial-caption {
+    font-size: 12px;
+  }
+}
+
+/* Desktop Grid Positioning - 4 columns */
+@media (min-width: 1024px) {
+  .editorial-title {
+    margin-bottom: 40px;
+  }
+
+  /* Hide intro text on desktop (it shows in the grid instead) */
+  .editorial-intro {
+    display: none;
+  }
+
   .editorial-grid {
     grid-template-columns: repeat(4, 1fr);
+    column-gap: 20px;
+    row-gap: 25px;
     grid-auto-rows: auto;
   }
 
-  /* Row 1 */
+  /* All items use dynamic row from CSS variable */
+  .editorial-item {
+    grid-row: var(--row);
+  }
+
+  /* Row 1 positions */
   .editorial-item--1 {
     grid-column: 1;
-    grid-row: 1;
   }
 
   .editorial-item--1 .editorial-image {
@@ -105,14 +163,15 @@
   }
 
   .editorial-item--text {
+    display: flex;
+    align-items: flex-start;
+    padding: 0;
     grid-column: 2;
-    grid-row: 1;
     align-self: start;
   }
 
   .editorial-item--2 {
     grid-column: 3;
-    grid-row: 1;
   }
 
   .editorial-item--2 .editorial-image {
@@ -121,7 +180,6 @@
 
   .editorial-item--3 {
     grid-column: 4;
-    grid-row: 1;
   }
 
   .editorial-item--3 .editorial-image {
@@ -131,7 +189,6 @@
   /* Row 2: Image 4 (square 2 cols), gap, Image 5 (vertical 1 col) */
   .editorial-item--4 {
     grid-column: 1 / 3;
-    grid-row: 2;
   }
 
   .editorial-item--4 .editorial-image {
@@ -140,7 +197,6 @@
 
   .editorial-item--5 {
     grid-column: 4;
-    grid-row: 2;
   }
 
   .editorial-item--5 .editorial-image {
@@ -150,7 +206,6 @@
   /* Row 3: 4 equal images */
   .editorial-item--6 {
     grid-column: 1;
-    grid-row: 3;
   }
 
   .editorial-item--6 .editorial-image {
@@ -159,7 +214,6 @@
 
   .editorial-item--7 {
     grid-column: 2;
-    grid-row: 3;
   }
 
   .editorial-item--7 .editorial-image {
@@ -168,7 +222,6 @@
 
   .editorial-item--8 {
     grid-column: 3;
-    grid-row: 3;
   }
 
   .editorial-item--8 .editorial-image {
@@ -177,7 +230,6 @@
 
   .editorial-item--9 {
     grid-column: 4;
-    grid-row: 3;
   }
 
   .editorial-item--9 .editorial-image {
@@ -187,7 +239,6 @@
   /* Row 4: Image 10 (vertical 1 col), gap, Image 11 (square 2 cols) */
   .editorial-item--10 {
     grid-column: 1;
-    grid-row: 4;
   }
 
   .editorial-item--10 .editorial-image {
@@ -196,61 +247,9 @@
 
   .editorial-item--11 {
     grid-column: 3 / 5;
-    grid-row: 4;
   }
 
   .editorial-item--11 .editorial-image {
     aspect-ratio: 1 / 1;
-  }
-}
-
-/* Mobile Layout - 2 columns */
-@media (max-width: 767px) {
-  .editorial-page {
-    margin-top: 40px;
-    margin-bottom: 60px;
-  }
-
-  .editorial-title {
-    font-size: 24px;
-    margin-bottom: 30px;
-  }
-
-  .editorial-grid {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 15px;
-    row-gap: 20px;
-  }
-
-  .editorial-item .editorial-image {
-    aspect-ratio: 3 / 4;
-  }
-
-  .editorial-item--text {
-    grid-column: span 2;
-  }
-
-  .editorial-item--4 {
-    grid-column: span 2;
-  }
-
-  .editorial-item--4 .editorial-image {
-    aspect-ratio: 4 / 5;
-  }
-
-  .editorial-item--11 {
-    grid-column: span 2;
-  }
-
-  .editorial-item--11 .editorial-image {
-    aspect-ratio: 16 / 9;
-  }
-
-  .editorial-caption {
-    font-size: 12px;
-  }
-
-  .editorial-text {
-    font-size: 12px;
   }
 }
