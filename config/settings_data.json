@@ -113,6 +113,113 @@
           "heading": "otsamo",
           "content": "<p>Timeless pieces. Minimal distraction.<br/><br/>We are a contemporary fashion brand driven by a deep appreciation for detail, craftsmanship, and slow design. Founded with the intention to create meaningful garments, we believe in the value of thoughtful production, subtle aesthetics, and pieces designed to last.<br/><br/>In a fast-moving world, we choose to slow down. We focus on essentials — shapes, textures, and materials that speak without shouting. Our collections are curated, not rushed. Meant to be worn, not consumed.<br/><br/>We design for those who value quality over quantity. For those who understand that true luxury lies in simplicity, purpose, and presence.</p>"
         }
+      },
+      "editorial-template": {
+        "type": "editorial-template",
+        "blocks": {
+          "image_Gi8deR": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/5_8bit-sc-story-1080-1920.jpg",
+              "caption": "Look 1"
+            }
+          },
+          "image_cXpX3B": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/CROP_SUORISTETTU_8_8bit-sc-story-1080-1920.jpg",
+              "caption": "Look 2"
+            }
+          },
+          "image_aMExX9": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/SUORISTETTU_8_8bit-sc-story-1080-1920.jpg",
+              "caption": "Look 3"
+            }
+          },
+          "image_HkTXFK": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/ChatGPT_Image_Nov_28_2025_09_52_12_PM.png",
+              "caption": "Detail 1"
+            }
+          },
+          "image_XqrEmT": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/5_8bit-sc-story-1080-1920.jpg",
+              "caption": "Look 4"
+            }
+          },
+          "image_WK9Ur8": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/14_8bit-sc-story-1080-1920.jpg",
+              "caption": "Look 5"
+            }
+          },
+          "image_hrHPXD": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/9_8bit-sc-story-1080-1920.jpg",
+              "caption": "Look 6"
+            }
+          },
+          "image_h3yB4G": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/SUORISTETTU_8_8bit-sc-story-1080-1920.jpg",
+              "caption": "Look 7"
+            }
+          },
+          "image_93d3C6": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/13_8bit-sc-story-1080-1920.jpg",
+              "caption": "Look 8"
+            }
+          },
+          "image_kpp3dX": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/5_8bit-sc-story-1080-1920.jpg",
+              "caption": "Look 9"
+            }
+          },
+          "image_k6r3VG": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/ChatGPT_Image_Nov_28_2025_09_52_12_PM.png",
+              "caption": "Detail 2"
+            }
+          },
+          "image_JUBrYg": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/2_8bit-sc-story-1080-1920.jpg",
+              "caption": "Look 9"
+            }
+          }
+        },
+        "block_order": [
+          "image_Gi8deR",
+          "image_cXpX3B",
+          "image_aMExX9",
+          "image_HkTXFK",
+          "image_XqrEmT",
+          "image_WK9Ur8",
+          "image_hrHPXD",
+          "image_h3yB4G",
+          "image_93d3C6",
+          "image_kpp3dX",
+          "image_k6r3VG",
+          "image_JUBrYg"
+        ],
+        "settings": {
+          "title": "READ BETWEEN THE LINES",
+          "text_content": "<p>Minimal shapes, soft lines and natural textures define Otsamo’s latest collection.<br/>Each piece is designed to blend simplicity with purpose — creating a calm, timeless wardrobe for the modern individual.</p>"
+        }
       }
     },
     "content_for_index": [],
