@@ -105,6 +105,14 @@
         "settings": {
           "scroll_speed": 30
         }
+      },
+      "about-template": {
+        "type": "about-template",
+        "settings": {
+          "image": "shopify://shop_images/ChatGPT_Image_Nov_28_2025_09_41_50_PM.png",
+          "heading": "otsamo",
+          "content": "<p>Timeless pieces. Minimal distraction.<br/><br/>We are a contemporary fashion brand driven by a deep appreciation for detail, craftsmanship, and slow design. Founded with the intention to create meaningful garments, we believe in the value of thoughtful production, subtle aesthetics, and pieces designed to last.<br/><br/>In a fast-moving world, we choose to slow down. We focus on essentials — shapes, textures, and materials that speak without shouting. Our collections are curated, not rushed. Meant to be worn, not consumed.<br/><br/>We design for those who value quality over quantity. For those who understand that true luxury lies in simplicity, purpose, and presence.</p>"
+        }
       }
     },
     "content_for_index": [],
