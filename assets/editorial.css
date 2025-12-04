@@ -35,10 +35,25 @@
 }
 
 /* Tablet - 2 columns */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .editorial-grid {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 15px;
+  }
+
+  /* Square images take full row on tablet */
+  .editorial-item--4,
+  .editorial-item--11 {
+    grid-column: 1 / -1;
+  }
+
+  /* Swap order: 5th image appears before 4th square image */
+  .editorial-item--4 {
+    order: 2;
+  }
+
+  .editorial-item--5 {
+    order: 1;
   }
 }
 
@@ -104,6 +119,12 @@
 /* Mobile/Tablet - simple 2 column grid */
 .editorial-item .editorial-image {
   aspect-ratio: 3 / 4;
+}
+
+/* Square images remain square on mobile/tablet */
+.editorial-item--4 .editorial-image,
+.editorial-item--11 .editorial-image {
+  aspect-ratio: 1 / 1;
 }
 
 /* Mobile adjustments */
