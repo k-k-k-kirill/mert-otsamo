@@ -639,7 +639,7 @@
 }
 
 .product-accordion-body {
-  padding: 0;
+  padding: 0 20px 0 0;
 }
 
 .product-accordion-text {

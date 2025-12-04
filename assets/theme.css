@@ -903,7 +903,8 @@ footer.footer,
   gap: 12px;
 }
 
-.footer-email {
+.footer-email,
+.footer-instagram {
   color: var(--primary-color);
   font-family: Manrope;
   font-weight: 400;
@@ -913,10 +914,15 @@ footer.footer,
   letter-spacing: 2%;
   text-decoration: none;
   transition: opacity 0.3s ease;
+  display: block;
 
   &:hover {
     opacity: 0.7;
   }
+}
+
+.footer-instagram {
+  margin-top: 8px;
 }
 
 .footer-bottom {

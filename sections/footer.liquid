@@ -16,6 +16,9 @@
 
     <div class="footer-contact">
       <a href="mailto:{{ shop.email }}" class="footer-email">{{ shop.email }}</a>
+      {% if settings.instagram_url %}
+        <a href="{{ settings.instagram_url }}" class="footer-instagram" target="_blank" rel="noopener">Instagram</a>
+      {% endif %}
     </div>
   </div>
   <div class="footer-bottom">

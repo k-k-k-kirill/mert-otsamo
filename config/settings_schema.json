@@ -20,5 +20,15 @@
         "label": "Size guide image"
       }
     ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "url",
+        "id": "instagram_url",
+        "label": "Instagram URL"
+      }
+    ]
   }
 ]
