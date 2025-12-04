@@ -852,7 +852,7 @@ footer.footer,
   }
 
   @media (min-width: 1024px) {
-    grid-column: 5 / 7;
+    grid-column: 6 / 8;
   }
 }
 
