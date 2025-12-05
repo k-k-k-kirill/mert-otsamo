@@ -79,16 +79,16 @@
       "product-highlights": {
         "type": "product-highlights",
         "blocks": {
-          "product_BV6G3J": {
-            "type": "product",
-            "settings": {
-              "product": "the-aurelia-satin-slip-dress"
-            }
-          },
           "product_TfUAmm": {
             "type": "product",
             "settings": {
               "product": "the-classic-essential-tee"
+            }
+          },
+          "product_BV6G3J": {
+            "type": "product",
+            "settings": {
+              "product": "the-aurelia-satin-slip-dress"
             }
           },
           "product_kMVm6L": {
@@ -99,8 +99,8 @@
           }
         },
         "block_order": [
-          "product_BV6G3J",
           "product_TfUAmm",
+          "product_BV6G3J",
           "product_kMVm6L"
         ],
         "settings": {
@@ -112,7 +112,7 @@
         "settings": {
           "image": "shopify://shop_images/35_about_16bit.jpg",
           "heading": "otsamo",
-          "content": "<p>Timeless pieces. Minimal distraction.<br/><br/>We are a contemporary fashion brand driven by a deep appreciation for detail, craftsmanship, and slow design. Founded with the intention to create meaningful garments, we believe in the value of thoughtful production, subtle aesthetics, and pieces designed to last.<br/><br/>In a fast-moving world, we choose to slow down. We focus on essentials — shapes, textures, and materials that speak without shouting. Our collections are curated, not rushed. Meant to be worn, not consumed.<br/><br/>We design for those who value quality over quantity. For those who understand that true luxury lies in simplicity, purpose, and presence.</p>"
+          "content": "<p>Elevated streetwear with a couture soul.<br/><br/>OTSAMO was established in 2025. The brand emerged from the simple thought of<br/>carrying the couture precision of the Mert Otsamo atelier into archetype clothing. The<br/>Helsinki-based ready-to-wear brand is rooted in Finnish minimalism and sculptural<br/>design, with timeless pieces every wardrobe should have, reimagined through clarity,<br/>precision, and form.<br/><br/>Each piece is a tribute to craftsmanship, created from high-quality materials and<br/>designed to endure beyond seasons and trends. The OTSAMO wardrobe stands for<br/>quiet strength and effortless structure, made for those who move with intention and<br/><br/>live beyond convention.</p>"
         }
       },
       "editorial-template": {
