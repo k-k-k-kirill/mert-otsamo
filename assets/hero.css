@@ -56,7 +56,6 @@
   text-transform: uppercase;
   margin: 0 0 30px 0;
   color: var(--hero-text-color);
-  max-width: 700px;
 }
 
 .hero-cta {

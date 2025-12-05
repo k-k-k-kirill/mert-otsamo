@@ -282,11 +282,11 @@
           </div>
         {% endif %}
 
-        {% comment %} Size & Fit Accordion with Size Guide {% endcomment %}
+        {% comment %} Size Guide Accordion {% endcomment %}
         {% if settings.size_guide_image or product.metafields.custom.size_fit != blank %}
           <div class="product-accordion">
             <button type="button" class="product-accordion-header" aria-expanded="false">
-              <span class="product-accordion-title">Size & Fit</span>
+              <span class="product-accordion-title">Size guide</span>
               <span class="product-accordion-icon">
                 <img src="{{ 'Plus.svg' | asset_url }}" alt="Expand" class="product-accordion-icon-plus" width="24" height="24">
                 <img src="{{ 'Minus.svg' | asset_url }}" alt="Collapse" class="product-accordion-icon-minus" width="24" height="24">

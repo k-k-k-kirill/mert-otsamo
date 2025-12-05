@@ -317,6 +317,11 @@
   margin-bottom: 0;
 }
 
+.product-details-description a {
+  text-decoration: underline;
+  font-size: 14px;
+}
+
 /* Product Form */
 #product-form {
   display: flex;

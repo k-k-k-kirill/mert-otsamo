@@ -454,8 +454,7 @@ h1 {
   opacity: 1;
 }
 
-.site-nav-link:hover::after,
-.site-nav-link--active::after {
+.site-nav-link:hover::after {
   width: 100%;
 }
 
@@ -617,11 +616,6 @@ h1 {
 
 .site-mobile-menu-link span {
   flex: 0 0 auto;
-}
-
-.site-mobile-menu-link--active span {
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 .site-mobile-menu-arrow {
@@ -812,45 +806,24 @@ footer.footer,
 }
 
 .footer-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
   width: 100%;
 
   @media (min-width: 768px) and (max-width: 1023px) {
+    display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px 60px;
     align-items: center;
   }
 
   @media (min-width: 1024px) {
+    display: grid;
     grid-template-columns: repeat(8, 1fr);
     gap: 20px;
     align-items: center;
   }
-}
-
-/* Mobile: newsletter full row, nav + contact in 3 columns on same row */
-@media (max-width: 767px) {
-  .footer-grid {
-    align-items: start;
-  }
-
-  .footer-newsletter {
-    grid-column: 1 / -1;
-    margin-bottom: 20px;
-  }
-
-  .footer-nav {
-    grid-column: 1 / 3;
-    grid-row: 2;
-  }
-
-  .footer-contact {
-    grid-column: 3 / 4;
-    grid-row: 2;
-  }
-
 }
 
 .footer-newsletter {
@@ -886,11 +859,12 @@ footer.footer,
 .footer-contact {
   @media (min-width: 768px) and (max-width: 1023px) {
     grid-column: 2 / 3;
-    text-align: left;
+    text-align: right;
   }
 
   @media (min-width: 1024px) {
     grid-column: 8 / 9;
+    text-align: right;
   }
 }
 
@@ -923,33 +897,32 @@ footer.footer,
   }
 }
 
-.footer-contact-links {
+.footer-contact {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  gap: 12px;
+}
 
-  li {
-    list-style: none;
+.footer-email,
+.footer-instagram {
+  color: var(--primary-color);
+  font-family: Manrope;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 140%;
+  letter-spacing: 2%;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  display: block;
+
+  &:hover {
+    opacity: 0.7;
   }
+}
 
-  a {
-    color: var(--primary-color);
-    font-family: Manrope;
-    font-size: 12px;
-    font-weight: 400;
-    font-style: normal;
-    line-height: 140%;
-    letter-spacing: 2%;
-    text-decoration: none;
-    transition: opacity 0.3s ease;
-
-    &:hover {
-      opacity: 0.7;
-    }
-  }
+.footer-instagram {
+  margin-top: 8px;
 }
 
 .footer-bottom {

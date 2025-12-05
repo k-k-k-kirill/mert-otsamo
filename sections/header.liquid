@@ -3,7 +3,7 @@
     <div class="site-header-left">
       <nav class="site-nav site-nav--desktop">
         {% for link in linklists['main-menu'].links %}
-          <a href="{{ link.url }}" class="site-nav-link site-nav-link--desktop{% if link.active %} site-nav-link--active{% endif %}">{{ link.title }}</a>
+          <a href="{{ link.url }}" class="site-nav-link site-nav-link--desktop">{{ link.title }}</a>
         {% endfor %}
       </nav>
       <button type="button" class="site-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -40,7 +40,7 @@
       </div>
       <nav class="site-mobile-menu-nav">
         {% for link in linklists['main-menu'].links %}
-          <a href="{{ link.url }}" class="site-mobile-menu-link{% if link.active %} site-mobile-menu-link--active{% endif %}">
+          <a href="{{ link.url }}" class="site-mobile-menu-link">
             <span>{{ link.title }}</span>
             <img src="{{ 'arrow.svg' | asset_url }}" alt="" class="site-mobile-menu-arrow" width="24" height="24">
           </a>
