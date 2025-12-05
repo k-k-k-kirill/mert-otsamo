@@ -15,10 +15,12 @@
     </nav>
 
     <div class="footer-contact">
-      <a href="mailto:{{ shop.email }}" class="footer-email">{{ shop.email }}</a>
-      {% if settings.instagram_url %}
-        <a href="{{ settings.instagram_url }}" class="footer-instagram" target="_blank" rel="noopener">Instagram</a>
-      {% endif %}
+      <ul class="footer-contact-links">
+        <li><a href="mailto:{{ shop.email }}">{{ shop.email }}</a></li>
+        {% if settings.instagram_url %}
+          <li><a href="{{ settings.instagram_url }}" target="_blank" rel="noopener">Instagram</a></li>
+        {% endif %}
+      </ul>
     </div>
   </div>
   <div class="footer-bottom">

@@ -69,8 +69,8 @@
       "hero": {
         "type": "hero",
         "settings": {
-          "left_image": "shopify://shop_images/SUORISTETTU_8_8bit-sc-story-1080-1920_021a7bb0-7d8e-4847-b87d-7395275dc133.jpg",
-          "right_image": "shopify://shop_images/14_8bit-sc-story-1080-1920.jpg",
+          "left_image": "shopify://shop_images/CROP_SUORISTETTU_8_16bit.webp",
+          "right_image": "shopify://shop_images/24_16bit.jpg",
           "hero_title": "Elevated streetwear with a couture soul.",
           "cta_title": "Discover now",
           "cta_url": "shopify://collections/all"
@@ -110,7 +110,7 @@
       "about-template": {
         "type": "about-template",
         "settings": {
-          "image": "shopify://shop_images/ChatGPT_Image_Nov_28_2025_09_41_50_PM.png",
+          "image": "shopify://shop_images/35_about_16bit.jpg",
           "heading": "otsamo",
           "content": "<p>Timeless pieces. Minimal distraction.<br/><br/>We are a contemporary fashion brand driven by a deep appreciation for detail, craftsmanship, and slow design. Founded with the intention to create meaningful garments, we believe in the value of thoughtful production, subtle aesthetics, and pieces designed to last.<br/><br/>In a fast-moving world, we choose to slow down. We focus on essentials — shapes, textures, and materials that speak without shouting. Our collections are curated, not rushed. Meant to be worn, not consumed.<br/><br/>We design for those who value quality over quantity. For those who understand that true luxury lies in simplicity, purpose, and presence.</p>"
         }
