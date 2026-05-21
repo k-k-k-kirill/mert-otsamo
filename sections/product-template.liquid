@@ -52,31 +52,36 @@
     <div class="product-details">
       <div class="product-details-title-price">
         <h1 class="product-details-title">{{ product.title }}{% if product.metafields.custom.pre_order_mode and product.available %} - Pre-order{% endif %}</h1>
-        <div class="product-details-price">
-          {% assign has_discount = false %}
-          {% assign compare_price = product.compare_at_price_min %}
-          {% assign current_price = product.price_min %}
-          
-          {% if product.compare_at_price_min > product.price_min %}
-            {% assign has_discount = true %}
-          {% elsif product.variants.size > 0 %}
-            {% for variant in product.variants %}
-              {% if variant.compare_at_price > variant.price %}
-                {% assign has_discount = true %}
-                {% assign compare_price = variant.compare_at_price %}
-                {% assign current_price = variant.price %}
-                {% break %}
-              {% endif %}
-            {% endfor %}
-          {% endif %}
-          
-          {% if has_discount %}
-            <span class="product-details-price-old">{{ compare_price | money }}</span>
-            <span class="product-details-price-new">{{ current_price | money }}</span>
-          {% else %}
-            {{ product.price_min | money }}
-          {% endif %}
-        </div>
+        {% assign has_discount = false %}
+        {% assign compare_price = product.compare_at_price_min %}
+        {% assign current_price = product.price_min %}
+        {% assign display_price = product.price_min %}
+        
+        {% if product.compare_at_price_min > product.price_min %}
+          {% assign has_discount = true %}
+          {% assign display_price = product.price_min %}
+        {% elsif product.variants.size > 0 %}
+          {% for variant in product.variants %}
+            {% if variant.compare_at_price > variant.price %}
+              {% assign has_discount = true %}
+              {% assign compare_price = variant.compare_at_price %}
+              {% assign current_price = variant.price %}
+              {% assign display_price = variant.price %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        
+        {% if display_price > 0 %}
+          <div class="product-details-price">
+            {% if has_discount %}
+              <span class="product-details-price-old">{{ compare_price | money }}</span>
+              <span class="product-details-price-new">{{ current_price | money }}</span>
+            {% else %}
+              {{ product.price_min | money }}
+            {% endif %}
+          </div>
+        {% endif %}
       </div>
 
       {% if product.description != blank %}

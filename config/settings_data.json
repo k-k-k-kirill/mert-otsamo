@@ -79,29 +79,36 @@
       "product-highlights": {
         "type": "product-highlights",
         "blocks": {
-          "product_TfUAmm": {
+          "product_rEQdfG": {
             "type": "product",
             "settings": {
-              "product": "the-classic-essential-tee"
+              "product": "otsamo-loose-fit-t-shirt"
             }
           },
-          "product_BV6G3J": {
+          "product_7YEx9J": {
             "type": "product",
             "settings": {
-              "product": "the-aurelia-satin-slip-dress"
+              "product": "otsamo-loose-fit-hoodie"
             }
           },
-          "product_kMVm6L": {
+          "product_KLcE8r": {
             "type": "product",
             "settings": {
-              "product": "the-marlowe-wool-blend-coat"
+              "product": "otsamo-long-coat"
+            }
+          },
+          "product_kTzmBE": {
+            "type": "product",
+            "settings": {
+              "product": "otsamo-bomber-jacket"
             }
           }
         },
         "block_order": [
-          "product_TfUAmm",
-          "product_BV6G3J",
-          "product_kMVm6L"
+          "product_rEQdfG",
+          "product_7YEx9J",
+          "product_KLcE8r",
+          "product_kTzmBE"
         ],
         "settings": {
           "scroll_speed": 30

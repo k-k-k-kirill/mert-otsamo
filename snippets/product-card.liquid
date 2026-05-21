@@ -7,15 +7,18 @@
 {% assign has_discount = false %}
 {% assign compare_price = product.compare_at_price_min %}
 {% assign current_price = product.price_min %}
+{% assign display_price = product.price_min %}
 
 {% if product.compare_at_price_min > product.price_min %}
   {% assign has_discount = true %}
+  {% assign display_price = product.price_min %}
 {% elsif product.variants.size > 0 %}
   {% for variant in product.variants %}
     {% if variant.compare_at_price > variant.price %}
       {% assign has_discount = true %}
       {% assign compare_price = variant.compare_at_price %}
       {% assign current_price = variant.price %}
+      {% assign display_price = variant.price %}
       {% break %}
     {% endif %}
   {% endfor %}
@@ -58,14 +61,16 @@
     <div class="product-info">
       <div class="product-title-price">
         <h2 class="product-title">{{ product.title }}{% if product.metafields.custom.pre_order_mode and all_variants_unavailable == false %} - Pre-order{% endif %}</h2>
-        <div class="product-price">
-          {% if has_discount %}
-            <span class="product-price-old">{{ compare_price | money }}</span>
-            <span class="product-price-new">{{ current_price | money }}</span>
-          {% else %}
-            {{ product.price_min | money }}
-          {% endif %}
-        </div>
+        {% if display_price > 0 %}
+          <div class="product-price">
+            {% if has_discount %}
+              <span class="product-price-old">{{ compare_price | money }}</span>
+              <span class="product-price-new">{{ current_price | money }}</span>
+            {% else %}
+              {{ product.price_min | money }}
+            {% endif %}
+          </div>
+        {% endif %}
       </div>
       {% if product.variants.size > 0 and product.metafields.custom.coming_soon_mode != true %}
         {% comment %} Get unique sizes by checking each size individually {% endcomment %}
