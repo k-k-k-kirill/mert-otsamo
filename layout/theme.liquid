@@ -132,13 +132,6 @@
 
     {{ content_for_header }}
 
-    {% comment %} Only redirect in production (otsamo.eu), not on localhost or preview domains {% endcomment %}
-    {% if template != 'index' and request.host contains 'otsamo.eu' %}
-      <script>
-        window.location.href = '/';
-      </script>
-    {% endif %}
-
   </head>
   
 
